@@ -12,6 +12,7 @@ from module.umamusume.protocol.preset import AddPresetRequest
 from module.umamusume.task import UmamusumeTaskType, build_task
 from module.umamusume.user_data import read_presets, write_preset
 
+# 静态字典，赛马娘育成任务UI-脚本
 script_dicts: Dict[UmamusumeTaskType, dict] = {
     UmamusumeTaskType.UMAMUSUME_TASK_TYPE_CULTIVATE: {
         INFO: script_info,

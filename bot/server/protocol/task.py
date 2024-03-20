@@ -4,6 +4,7 @@ from pydantic import BaseModel
 from bot.base.task import TaskExecuteMode
 
 
+# 定义入参出参格式
 # 添加任务
 class AddTaskRequest(BaseModel):
     app_name: str

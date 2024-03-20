@@ -6,6 +6,7 @@ log = logger.get_logger(__name__)
 
 
 def get_operation(ctx: UmamusumeContext) -> TurnOperation | None:
+    # 如果未完成出道战，直接返回出道战操作
     turn_operation = TurnOperation()
     if not ctx.cultivate_detail.debut_race_win:
         turn_operation.turn_operation_type = TurnOperationType.TURN_OPERATION_TYPE_RACE
@@ -148,10 +149,13 @@ def get_training_support_card_score(ctx: UmamusumeContext) -> list[float]:
     return result
 
 
+# 计算基础属性增长得分
 def get_training_basic_attribute_score(ctx: UmamusumeContext, turn_info: TurnInfo, expect_attribute: list[int]) -> list[float]:
+    # 回合数
     date = turn_info.date
     cultivate_expect_attribute = expect_attribute.copy()
     extra_weight = [0, 0, 0, 0, 0]
+    # 从上下文获取本回合训练项目的额外权重（分为三年）
     if len(ctx.cultivate_detail.extra_weight) == 3:
         if 0 < date <= 24:
             extra_weight = ctx.cultivate_detail.extra_weight[0]
@@ -165,6 +169,7 @@ def get_training_basic_attribute_score(ctx: UmamusumeContext, turn_info: TurnInf
     if date > 72:
         ura_extra_attr = 0
         date = 72
+    # 计算每种属性训练权重
     for i in range(len(cultivate_expect_attribute)):
         turn_expect_attribute_item = (int((cultivate_expect_attribute[i] - ura_extra_attr) * (date / 72))
                                       ) + 120 * (1 - date / 72)
@@ -175,6 +180,8 @@ def get_training_basic_attribute_score(ctx: UmamusumeContext, turn_info: TurnInf
     turn_uma_attr = [turn_info.uma_attribute.speed, turn_info.uma_attribute.stamina, turn_info.uma_attribute.power,
               turn_info.uma_attribute.will, turn_info.uma_attribute.intelligence]
     result = []
+    # turn_uma_attr 和 cultivate_expect_attribute 都是列表，它们的长度相同。
+    # zip(turn_uma_attr, cultivate_expect_attribute) 会将这两个列表的对应元素打包成一个个的元组，然后用 for x, y 遍历这些元组。
     expect_attribute_all_complete = all(x >= y for x, y in zip(turn_uma_attr, cultivate_expect_attribute))
     if expect_attribute_all_complete:
         log.debug("育成目标属性已达成")

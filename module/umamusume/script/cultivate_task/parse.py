@@ -17,6 +17,7 @@ log = logger.get_logger(__name__)
 
 
 def parse_date(img, ctx: UmamusumeContext) -> int:
+    # TODO 固定位置待剥离
     sub_img_date = img[35:75, 10:220]
     sub_img_date = cv2.copyMakeBorder(sub_img_date, 20, 20, 20, 20, cv2.BORDER_CONSTANT, None, (255, 255, 255))
     date_text = ocr_line(sub_img_date)
@@ -24,7 +25,7 @@ def parse_date(img, ctx: UmamusumeContext) -> int:
     for text in DATE_YEAR:
         if date_text.__contains__(text):
             year_text = text
-
+            break
     if year_text == "":
         year_text = find_similar_text(date_text, DATE_YEAR)
 
@@ -44,6 +45,7 @@ def parse_date(img, ctx: UmamusumeContext) -> int:
     for text in DATE_MONTH:
         if date_text.__contains__(text):
             month_text = text
+            break
     if month_text == "":
         month_text = find_similar_text(date_text, DATE_MONTH)
 
@@ -294,6 +296,24 @@ def parse_training_result(ctx: UmamusumeContext, img, train_type: TrainingType):
     skill_point_incr_text = ocr_line(sub_img_skill_point_incr)
     skill_point_incr_text = re.sub("\\D", "", skill_point_incr_text)
 
+    # 检查不同训练类型各项属性是否识别正常
+    if train_type == TrainingType.TRAINING_TYPE_SPEED:
+        if speed_incr_text == "" or power_incr_text == "" or skill_point_incr_text == "":
+            log.error("速度训练属性识别异常")
+    if train_type == TrainingType.TRAINING_TYPE_STAMINA:
+        if stamina_incr_text == "" or will_incr_text == ""  or skill_point_incr_text == "":
+            log.error("耐力训练属性识别异常")
+    if train_type == TrainingType.TRAINING_TYPE_POWER:
+        if power_incr_text == "" or stamina_incr_text == ""  or skill_point_incr_text == "":
+            log.error("力量训练属性识别异常")
+    if train_type == TrainingType.TRAINING_TYPE_WILL:
+        if will_incr_text == "" or speed_incr_text == "" or skill_point_incr_text == "" or power_incr_text == "":
+            log.error("毅力训练属性识别异常")
+    if train_type == TrainingType.TRAINING_TYPE_INTELLIGENCE:
+        if intelligence_incr_text == "" or speed_incr_text == "" or skill_point_incr_text == "":
+            log.error("智力训练属性识别异常")
+
+    # 记录训练结果
     if speed_incr_text != "":
         ctx.cultivate_detail.turn_info.training_info_list[train_type.value - 1].speed_incr = int(
             speed_incr_text)

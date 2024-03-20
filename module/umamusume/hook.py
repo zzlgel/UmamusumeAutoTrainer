@@ -13,6 +13,7 @@ def before_hook(ctx: UmamusumeContext):
     pass
 
 
+# 后置钩子，点击事件后触发。或匹配按钮，或匹配
 def after_hook(ctx: UmamusumeContext):
     img = cv2.cvtColor(ctx.current_screen, cv2.COLOR_BGR2GRAY)
     if image_match(img, BTN_SKIP).find_match:

@@ -24,6 +24,8 @@ class Scheduler:
 
     def delete_task(self, task_id):
         remove_idx = -1
+        # enumerate()会返回一个迭代器，这个迭代器在每次迭代时返回一个包含两个元素的元组。
+        # 第一个元素是当前元素的索引（从0开始），第二个元素是当前元素的值。
         for i, v in enumerate(self.task_list):
             if v.task_id == task_id:
                 remove_idx = i
@@ -50,6 +52,13 @@ class Scheduler:
         while True:
             if self.active:
                 for task in self.task_list:
+                    # 伪任务调度，永远保持只有一个任务执行。
+                    # main.py调用Scheduler.init(),因为【不保存任务列表】，
+                    # 所以【Scheduler.active赋值为false】。同时【task_executor.active赋值为false】。
+                    # 当调用Scheduler.start()，Scheduler.active赋值为true。执行while循环，如果没有任务，active依然会被重新赋值false。
+                    # 当通过接口添加task后，当前task在第一个分支进入，并开启任务执行器线程，调用task_executor.start，
+                    # 将【task_executor.active赋值为true】，锁定该分支。
+                    # 并且其他程序并不改变task_executor.active值，除非结束任务，所以此调度相当于入栈调度。
                     if task.task_execute_mode == TaskExecuteMode.TASK_EXECUTE_MODE_ONE_TIME:
                         if task.task_status == TaskStatus.TASK_STATUS_PENDING and not task_executor.active:
                             executor_thread = threading.Thread(target=task_executor.start, args=([task]))
@@ -75,6 +84,7 @@ class Scheduler:
                     task_executor.stop()
             time.sleep(1)
 
+    # 复制任务
     def copy_task(self, task, to_task_execute_mode: TaskExecuteMode):
         new_task = copy.deepcopy(task)
         new_task.task_id = str(int(round(time.time() * 1000)))

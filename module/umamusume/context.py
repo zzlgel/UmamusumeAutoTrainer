@@ -6,10 +6,12 @@ import bot.base.log as logger
 log = logger.get_logger(__name__)
 
 
+# 支援卡信息
 class SupportCardInfo:
     name: str
     card_type: SupportCardType
     favor: SupportCardFavorLevel
+    # TODO 是否触发事件？
     has_event: bool
 
     def __init__(self,
@@ -23,13 +25,16 @@ class SupportCardInfo:
         self.has_event = has_event
 
 
+# 训练结果信息
 class TrainingInfo:
+    # 支援卡列表
     support_card_info_list: list[SupportCardInfo]
     speed_incr: int
     stamina_incr: int
     power_incr: int
     will_incr: int
     intelligence_incr: int
+    # 技能pt点数
     skill_point_incr: int
 
     def __init__(self):
@@ -41,6 +46,7 @@ class TrainingInfo:
         self.skill_point_incr = 0
         self.support_card_info_list = []
 
+    # 打印训练结果
     def log_training_info(self):
         log.info("训练结果：速度：%s, 耐力：%s, 力量：%s, 毅力：%s, 智力：%s, 技能点：%s", self.speed_incr,
                  self.stamina_incr, self.power_incr, self.will_incr,
@@ -53,6 +59,7 @@ class TrainingInfo:
         log.info(text)
 
 
+# 赛马娘属性
 class UmaAttribute:
     speed: int
     stamina: int
@@ -70,10 +77,15 @@ class UmaAttribute:
         self.skill_point = 0
 
 
+# 玩家育成操作
 class TurnOperation:
+    # 执行操作
     turn_operation_type: TurnOperationType
+    # 备选操作
     turn_operation_type_replace: TurnOperationType
+    # 训练类型
     training_type: TrainingType
+    # 比赛id
     race_id: int
 
     def __init__(self):
@@ -89,20 +101,34 @@ class TurnOperation:
             log.info("训练类型：%s", self.training_type.name)
 
 
+# 操作信息
 class TurnInfo:
+    # 回合时间
     date: int
 
+    # 分析训练信息是否结束
     parse_train_info_finish: bool
+    # 训练结果信息列表
     training_info_list: list[TrainingInfo]
+    # 分析主菜单是否结束
     parse_main_menu_finish: bool
+    # 赛马娘属性
     uma_attribute: UmaAttribute
+
+    # 剩余体力
     remain_stamina: int
+    # 干劲状态
     motivation_level: MotivationLevel
+    # 医疗室是否可用
     medic_room_available: bool
+    # 赛程是否可用
     race_available: bool
 
+    # 玩家育成操作
     turn_operation: TurnOperation | None
+    # 是否记录操作日志
     turn_info_logged: bool
+    # 是否学习完技能
     turn_learn_skill_done: bool
 
     def __init__(self):
@@ -137,6 +163,7 @@ class TurnInfo:
         self.training_info_list[4].log_training_info()
 
 
+# 培育上下文
 class CultivateContextDetail:
     turn_info: TurnInfo | None
     turn_info_history: list[TurnInfo]
@@ -149,11 +176,13 @@ class CultivateContextDetail:
     learn_skill_done: bool
     learn_skill_selected: bool
     cultivate_finish: bool
+    # 跑法列表
     tactic_list: list[int]
     debut_race_win: bool
     clock_use_limit: int
     clock_used: int
     learn_skill_threshold: int
+    # 育成中仅允许学习用户提供的技能
     learn_skill_only_user_provided: bool
     learn_skill_before_race: bool
     allow_recover_tp: bool
@@ -194,6 +223,7 @@ class UmamusumeContext(BotContext):
         return False
 
 
+# 赛马娘任务详情添加到赛马娘上下文中
 def build_context(task: UmamusumeTask, ctrl) -> UmamusumeContext:
     ctx = UmamusumeContext(task, ctrl)
     if task.task_type == UmamusumeTaskType.UMAMUSUME_TASK_TYPE_CULTIVATE:

@@ -37,6 +37,9 @@ class Executor:
     executor = ThreadPoolExecutor(max_workers=CONFIG.bot.auto.cpu_alloc)
 
     def __init__(self):
+        # 设置当前进程的CPU亲和性的。CPU亲和性是指进程在特定的CPU核心上运行。
+        # 当调用cpu_affinity()方法时，如果没有参数，那么它将返回一个包含进程可以运行的CPU核心的列表。
+        # 如果提供了参数，那么它将设置进程的CPU亲和性。
         psutil.Process().cpu_affinity(list(range(CONFIG.bot.auto.cpu_alloc)))
         pass
 
@@ -47,17 +50,23 @@ class Executor:
     def stop(self):
         self.active = False
 
+    # 检测UI
     def detect_ui(self, ui_list: list[UI], target) -> UI:
         # start_time = time.time()
+        # 从彩色图像转换为灰度图像
         target = cv2.cvtColor(target, cv2.COLOR_BGR2GRAY)
         futures = []
+        # 每次都轮询一边UI模版，很浪费时间和性能，TODO 可否UI添加出现年月，用上下文中的时间比对
         for ui in ui_list:
+            # 异步检测UI
             future = self.executor.submit(self.detect_ui_sub, ui, target)
             futures.append(future)
         for future in futures:
+            # 阻塞等待结果
             future.result()
         # end_time = time.time()
         # log.debug("detect ui cost: " + str(end_time - start_time))
+        # 根据detect_ui_sub的结果返回UI
         if len(self.detect_ui_results) > 0:
             result = self.detect_ui_results[0]
             self.detect_ui_results = []
@@ -65,6 +74,7 @@ class Executor:
         else:
             return NOT_FOUND_UI
 
+    # 检测UI子线程。检测UI的结果写入self.detect_ui_results
     def detect_ui_sub(self, ui: UI, target) -> None:
         result = True
         for template in ui.check_exist_template_list:
@@ -92,6 +102,7 @@ class Executor:
             self.detect_ui_results.append(ui)
             self.detect_ui_results_write_lock.release()
 
+    # 执行工作流
     def run_work_flow(self, task: Task):
         manifest = APP_MANIFEST_LIST[task.app_name]
         ui_list = manifest.ui_list
@@ -99,8 +110,9 @@ class Executor:
         after_hook = manifest.after_hook
         controller = get_controller()
         try:
-            # 初始化
+            # 初始化环境
             controller.init_env()
+            # 构建上下文
             ctx = manifest.build_context(task, controller)
             ctx.ctrl = controller
 
