@@ -4,6 +4,7 @@ from module.umamusume.define import TrainingType, SupportCardType, SupportCardFa
 DEFAULT = 0
 
 
+# 有用吗？TODO 目前并没有取到支援卡名字
 def get_support_card_score(ctx: UmamusumeContext, info: SupportCardInfo):
     if info.name in SCORE_DICT[info.card_type]:
         score = SCORE_DICT[info.card_type][info.name](ctx, info)
@@ -12,6 +13,7 @@ def get_support_card_score(ctx: UmamusumeContext, info: SupportCardInfo):
     return score
 
 
+# 支援卡羁绊等级
 def default_speed_support_card_score(ctx: UmamusumeContext, info: SupportCardInfo) -> float:
     if (info.favor == SupportCardFavorLevel.SUPPORT_CARD_FAVOR_LEVEL_3 or
             info.favor == SupportCardFavorLevel.SUPPORT_CARD_FAVOR_LEVEL_4):

@@ -7,6 +7,7 @@ import bot.base.log as logger
 
 log = logger.get_logger(__name__)
 
+#  TODO 需要根据剧本数据拓展
 event_map: dict[str, Union[callable, int]] = {
     "安心～针灸师，登☆场": 5,
     "新年的抱负": scenario_event_1,

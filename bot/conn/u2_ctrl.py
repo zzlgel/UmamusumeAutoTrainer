@@ -153,6 +153,7 @@ class U2AndroidController(AndroidController):
     # ===== common =====
 
     # execute_adb_shell 执行adb命令
+    # TODO 没有提供封装方法吗？
     def execute_adb_shell(self, cmd, sync):
         # os.run_cmd 执行命令行
         # adb是Android Debug Bridge的缩写，它是一个命令行工具，允许开发者与模拟器实例或连接的Android设备进行通信。

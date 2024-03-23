@@ -40,8 +40,10 @@ def find_text_pos(ocr_result, target):
     return result
 
 
+# 获取预设文字，保证识别结果的准确性
 def find_similar_text(target_text, ref_text_list, threshold=0):
     result = ""
+    # 遍历所有预设文字，找到最相似的文字
     for ref_text in ref_text_list:
         s = SequenceMatcher(None, target_text, ref_text)
         if s.ratio() > threshold:

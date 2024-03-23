@@ -54,7 +54,8 @@ class TrainingInfo:
         text = "此训练附带支援卡列表：["
         for c in self.support_card_info_list:
             if c.favor != SupportCardFavorLevel.SUPPORT_CARD_FAVOR_LEVEL_UNKNOWN:
-                text += "[支援卡名称：" + str(c.name) + "支援卡类型：" + str(c.card_type.name) + ", 支援卡羁绊阶段：" + str(c.favor.name) + "] "
+                text += "[支援卡名称：" + str(c.name) + "支援卡类型：" + str(
+                    c.card_type.name) + ", 支援卡羁绊阶段：" + str(c.favor.name) + "] "
         text += "]"
         log.info(text)
 
@@ -110,7 +111,7 @@ class TurnInfo:
     parse_train_info_finish: bool
     # 训练结果信息列表
     training_info_list: list[TrainingInfo]
-    # 分析主菜单是否结束
+    # 分析育成主菜单是否结束
     parse_main_menu_finish: bool
     # 赛马娘属性
     uma_attribute: UmaAttribute
@@ -145,12 +146,17 @@ class TurnInfo:
         self.turn_info_logged = False
         self.turn_learn_skill_done = False
 
+    # 判断是否夏季合宿
+    def is_summer_camp(self):
+        return 36 < self.date <= 40 or 60 < self.date <= 64
+
     def log_turn_info(self):
         log.info("当前回合时间 >" + str(self.date))
         log.info("干劲状态 " + str(self.motivation_level.name))
         log.info("体力剩余" + str(self.remain_stamina))
         log.info("当前属性值 速度：%s, 耐力：%s, 力量：%s, 毅力：%s, 智力：%s, 技能点：%s", self.uma_attribute.speed,
-                 self.uma_attribute.stamina, self.uma_attribute.power, self.uma_attribute.will, self.uma_attribute.intelligence, self.uma_attribute.skill_point)
+                 self.uma_attribute.stamina, self.uma_attribute.power, self.uma_attribute.will,
+                 self.uma_attribute.intelligence, self.uma_attribute.skill_point)
         log.info("速度训练结果：")
         self.training_info_list[0].log_training_info()
         log.info("耐力训练结果：")
@@ -167,24 +173,30 @@ class TurnInfo:
 class CultivateContextDetail:
     turn_info: TurnInfo | None
     turn_info_history: list[TurnInfo]
+    # 预期养成属性
     expect_attribute: list[int] | None
     follow_support_card_name: str
     follow_support_card_level: int
+    # 额外赛事列表
     extra_race_list: list[int]
+    # 学习技能列表
     learn_skill_list: list[list[str]]
     learn_skill_blacklist: list[str]
     learn_skill_done: bool
     learn_skill_selected: bool
+    # 结束养成
     cultivate_finish: bool
     # 跑法列表
     tactic_list: list[int]
     debut_race_win: bool
     clock_use_limit: int
     clock_used: int
+    # 技能学习阈值，当超过阈值学习技能
     learn_skill_threshold: int
-    # 育成中仅允许学习用户提供的技能
+    # 养成中仅允许学习用户提供的技能
     learn_skill_only_user_provided: bool
     learn_skill_before_race: bool
+    # 是否允许恢复体力，TP不足时自动恢复（仅使用药水）
     allow_recover_tp: bool
     parse_factor_done: bool
     extra_weight: list
@@ -242,8 +254,3 @@ def build_context(task: UmamusumeTask, ctrl) -> UmamusumeContext:
         detail.extra_weight = task.detail.extra_weight
         ctx.cultivate_detail = detail
     return ctx
-
-
-
-
-

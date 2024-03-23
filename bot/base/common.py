@@ -38,6 +38,7 @@ class ImageMatchConfig:
         self.match_mode = match_mode
         self.match_accuracy = match_accuracy
 
+
 # 坐标
 class Coordinate:
     x = None
@@ -53,6 +54,7 @@ class CronJobConfig:
     cron = None
     next_time = None
     last_time = None
+
 
 # 定时设置
 class CronConfig:

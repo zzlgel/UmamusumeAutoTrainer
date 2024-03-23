@@ -17,7 +17,7 @@ class SupportCardType(Enum):
     SUPPORT_CARD_TYPE_WILL = 4
     SUPPORT_CARD_TYPE_INTELLIGENCE = 5
     SUPPORT_CARD_TYPE_FRIEND = 6
-    # 组?
+    # 群?
     SUPPORT_CARD_TYPE_GROUP = 7
     # npc?
     SUPPORT_CARD_TYPE_NPC = 10
@@ -32,7 +32,7 @@ class SupportCardFavorLevel(Enum):
     SUPPORT_CARD_FAVOR_LEVEL_4 = 4
 
 
-# 训练类型
+# 训练项目
 class TrainingType(Enum):
     TRAINING_TYPE_UNKNOWN = 0
     TRAINING_TYPE_SPEED = 1
@@ -45,10 +45,15 @@ class TrainingType(Enum):
 # 干劲状态，从低到高
 class MotivationLevel(Enum):
     MOTIVATION_LEVEL_UNKNOWN = 0
+    # 极差
     MOTIVATION_LEVEL_1 = 1
+    # 不佳
     MOTIVATION_LEVEL_2 = 2
+    # 普通
     MOTIVATION_LEVEL_3 = 3
+    # 上佳
     MOTIVATION_LEVEL_4 = 4
+    # 极佳
     MOTIVATION_LEVEL_5 = 5
 
 

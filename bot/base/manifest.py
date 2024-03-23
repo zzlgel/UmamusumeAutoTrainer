@@ -1,9 +1,9 @@
 from bot.base.resource import UI
 from typing import Dict
 
+
 # AppManifest 是一个应用的配置文件，用于描述一个应用的基本信息和构建过程
 class AppManifest:
-
     # app_name: 应用名称
     app_name: str = None
     # app_activity_name: 应用的启动 Activity 名称

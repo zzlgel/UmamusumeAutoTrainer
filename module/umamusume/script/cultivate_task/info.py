@@ -13,6 +13,7 @@ import bot.base.log as logger
 
 log = logger.get_logger(__name__)
 
+# 各项事件标题
 TITLE = [
     "赛事详情",
     "休息&外出确认",
@@ -67,6 +68,7 @@ def script_info(ctx: UmamusumeContext):
         if title_text == TITLE[2]:
             ctx.ctrl.click_by_point(NETWORK_ERROR_CONFIRM)
         if title_text == TITLE[3]:
+            # TODO 这是为何呢
             if ctx.prev_ui is INFO:
                 ctx.cultivate_detail.clock_used -= 1
             if ctx.cultivate_detail.clock_use_limit > ctx.cultivate_detail.clock_used:

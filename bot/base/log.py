@@ -14,7 +14,6 @@ log_colors_config = {
 }
 
 
-
 # 获取日志对象
 def get_logger(name) -> Logger:
     logger = logging.getLogger(name)
@@ -32,5 +31,3 @@ def get_logger(name) -> Logger:
         console_handler.setLevel(logging.DEBUG)
         logger.addHandler(console_handler)
     return logger
-
-

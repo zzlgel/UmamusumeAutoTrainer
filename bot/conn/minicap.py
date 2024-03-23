@@ -7,8 +7,10 @@ from collections import OrderedDict
 
 import numpy
 
+
 # Banner类用于存储minicap的banner信息。banner信息是在与minicap建立连接时发送的一些关于设备屏幕的信息。
 # 例如，它包括设备屏幕的宽度和高度，以及设备屏幕的方向。
+# TODO 不知道用在哪
 class Banner:
     def __init__(self):
         self.__banner = OrderedDict(
@@ -35,9 +37,9 @@ class Banner:
     def __str__(self):
         return str(self.__banner)
 
+
 # Minicap使用套接字连接从设备接收数据，处理数据，并将其转换为Python可以使用的图像格式。用于捕获设备的屏幕。
 class Minicap:
-
     # 用于存储当前屏幕图像的变量。
     cur_image = None
 

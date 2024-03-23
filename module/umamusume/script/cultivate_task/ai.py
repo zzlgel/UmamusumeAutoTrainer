@@ -98,11 +98,12 @@ def get_operation(ctx: UmamusumeContext) -> TurnOperation | None:
                                                                     or 64 < ctx.cultivate_detail.turn_info.date <= 99 and ctx.cultivate_detail.turn_info.motivation_level.value <= 4 and ctx.cultivate_detail.turn_info.remain_stamina < 90):
         trip = True
 
+    # TODO 是否休息还应该根据失败概率判断
     rest = False
     if ctx.cultivate_detail.turn_info.remain_stamina <= 48:
         rest = True
-    elif (
-            ctx.cultivate_detail.turn_info.date == 36 or ctx.cultivate_detail.turn_info.date == 60) and ctx.cultivate_detail.turn_info.remain_stamina < 65:
+    elif ((ctx.cultivate_detail.turn_info.date == 36 or ctx.cultivate_detail.turn_info.date == 60)
+          and ctx.cultivate_detail.turn_info.remain_stamina < 65):
         rest = True
 
     expect_operation_type = TurnOperationType.TURN_OPERATION_TYPE_UNKNOWN
@@ -127,6 +128,7 @@ def get_operation(ctx: UmamusumeContext) -> TurnOperation | None:
     return turn_operation
 
 
+# TODO 此处计算无用
 def get_training_level_score(ctx: UmamusumeContext):
     expect_attribute = ctx.cultivate_detail.expect_attribute
     total_score = 2
@@ -137,6 +139,7 @@ def get_training_level_score(ctx: UmamusumeContext):
     return result
 
 
+# 计算每种类型训练，支援卡得分 TODO 当前无用
 def get_training_support_card_score(ctx: UmamusumeContext) -> list[float]:
     turn_info = ctx.cultivate_detail.turn_info
     result = []
@@ -231,24 +234,3 @@ def get_training_basic_attribute_score(ctx: UmamusumeContext, turn_info: TurnInf
     log.debug("每个训练的属性增长得分：" + str(result))
     return result
 
-
-status_score = [0.66, 1.15, 1.71, 2.25, 2.7, 2.96, 3.2, 3.45, 4.01, 4.26, 5.36, 6.70]
-
-
-def get_basic_status_score(status: int) -> float:
-    result = 0
-    for i in range(13):
-        if status > 0:
-            status -= 100
-            result += status_score[i] * 100
-        else:
-            if i - 1 > 11:
-                log.debug("识别错误")
-                return 0
-            result += status * status_score[i - 1]
-            break
-    return result
-
-
-if __name__ == '__main__':
-    print(str(get_basic_status_score(1169)))
