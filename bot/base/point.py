@@ -22,7 +22,7 @@ class ClickPoint:
     coordinate: Coordinate = None
     # desc 是一个描述
     desc: str = None
-    # template_check_list 是一个模板列表
+    # template_check_list 是一个模板列表 TODO 这里检查什么呢？
     template_check_list: list[Template] = None
 
     def __init__(self, target_type: ClickPointType, template: Template = None, coordinate: Coordinate = None,

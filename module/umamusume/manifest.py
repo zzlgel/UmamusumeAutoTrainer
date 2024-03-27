@@ -47,7 +47,7 @@ script_dicts: Dict[UmamusumeTaskType, dict[UI, callable]] = {
         RECEIVE_CUP: script_receive_cup,
         GOAL_FAILED: script_cultivate_goal_failed,
         CULTIVATE_LEVEL_RESULT: script_cultivate_level_result,
-        FACTOR_RECEIVE:script_factor_receive,
+        FACTOR_RECEIVE: script_factor_receive,
         HISTORICAL_RATING_UPDATE: script_historical_rating_update,
         SCENARIO_RATING_UPDATE: script_scenario_rating_update,
         CULTIVATE_URA_RACE_1: script_cultivate_goal_race,
@@ -75,6 +75,7 @@ def exec_script(ctx: UmamusumeContext):
         print("未找到此界面对应的默认脚本")
 
 
+# 国服赛马娘应用设置清单
 UmamusumeManifest = AppManifest(
     app_name="umamusume",
     app_package_name="com.bilibili.umamusu",

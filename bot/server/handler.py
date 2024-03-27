@@ -7,6 +7,8 @@ from bot.engine import ctrl as bot_ctrl
 from bot.server.protocol.task import *
 from starlette.responses import FileResponse
 
+from module.umamusume import handler
+
 server = FastAPI()
 
 server.add_middleware(
@@ -16,6 +18,14 @@ server.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# 大应用多文件路由 https://fastapi.tiangolo.com/zh/tutorial/bigger-applications/
+server.include_router(handler.router)
+
+
+@server.get("/")
+async def get_index():
+    return FileResponse('public/index.html')
 
 
 @server.post("/task")
@@ -47,11 +57,6 @@ def start_bot():
 @server.post("/action/bot/stop")
 def stop_bot():
     bot_ctrl.stop()
-
-
-@server.get("/")
-async def get_index():
-    return FileResponse('public/index.html')
 
 
 @server.get("/{whatever:path}")
