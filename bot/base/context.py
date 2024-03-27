@@ -20,6 +20,7 @@ class BotContext(metaclass=ABCMeta):
 
     # 表示下一个用户界面
     next_ui: UI = None
+
     # 当前回合是否ocr错误，用来保存当前截屏，为后续优化ocr做参考。
     ocr_error: bool = False
 

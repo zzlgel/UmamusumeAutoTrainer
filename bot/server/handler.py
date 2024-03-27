@@ -28,11 +28,14 @@ async def get_index():
     return FileResponse('public/index.html')
 
 
+# 支持多任务添加
 @server.post("/task")
-def add_task(req: AddTaskRequest):
-    bot_ctrl.add_task(req.app_name, req.task_execute_mode, req.task_type, req.task_desc,
-                      req.cron_job_config, req.attachment_data)
-
+def add_task(req: AddTaskRequest | list[AddTaskRequest]):
+    if isinstance(req, AddTaskRequest):
+        req = [req]
+    for req in req:
+        bot_ctrl.add_task(req.app_name, req.task_execute_mode, req.task_type, req.task_desc,
+                          req.cron_job_config, req.attachment_data)
 
 @server.delete("/task")
 def delete_task(req: DeleteTaskRequest):

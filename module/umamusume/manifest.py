@@ -7,6 +7,34 @@ from module.umamusume.context import build_context
 from module.umamusume.hook import after_hook, before_hook
 from module.umamusume.script.cultivate_task.cultivate import *
 from module.umamusume.script.cultivate_task.info import script_info
+from module.umamusume.script.team_stadium_task.race import (ts_script_main_menu,
+                                                            ts_script_race_home,
+                                                            script_team_stadium_home,
+                                                            script_team_stadium_home_na,
+                                                            script_team_stadium_select_opponent,
+                                                            script_team_stadium_before_race,
+                                                            script_team_stadium_check_all_results,
+                                                            script_team_stadium_check_result,
+                                                            script_team_stadium_results,
+                                                            script_team_stadium_reward,
+                                                            script_team_stadium_before_reward,
+                                                            script_team_stadium_end,
+                                                            script_team_stadium_high_score,
+                                                            script_team_stadium_level_result,
+                                                            )
+from module.umamusume.script.time_sale.time_sale import (script_shop_main,
+                                                         script_time_sale_main,
+                                                         )
+from module.umamusume.script.team_stadium_task.info import ts_script_info
+from module.umamusume.script.donate_task.donate import d_script_main_menu, script_guild_home
+from module.umamusume.script.donate_task.info import d_script_info
+from module.umamusume.script.daily_race_task.race import (dr_script_main_menu,
+                                                          dr_script_race_home,
+                                                          script_daily_race_dr_home,
+                                                          script_daily_race_select_racer,
+                                                          )
+from module.umamusume.script.daily_race_task.info import dr_script_info
+from module.umamusume.script.common.common import script_common_not_found_ui
 from module.umamusume.task import UmamusumeTaskType, build_task
 
 # 静态字典，赛马娘育成任务UI-脚本
@@ -14,6 +42,7 @@ script_dicts: Dict[UmamusumeTaskType, dict[UI, callable]] = {
     UmamusumeTaskType.UMAMUSUME_TASK_TYPE_CULTIVATE: {
         INFO: script_info,
         MAIN_MENU: script_main_menu,
+        MAIN_MENU_CONTINUE: script_main_menu,
         CULTIVATE_SCENARIO_SELECT: script_scenario_select,
         CULTIVATE_UMAMUSUME_SELECT: script_umamusume_select,
         CULTIVATE_EXTEND_UMAMUSUME_SELECT: script_extend_umamusume_select,
@@ -43,7 +72,7 @@ script_dicts: Dict[UmamusumeTaskType, dict[UI, callable]] = {
         CULTIVATE_CATCH_DOLL_GAME_RESULT: script_cultivate_catch_doll_result,
         CULTIVATE_LEARN_SKILL: script_cultivate_learn_skill,
         CULTIVATE_FINISH: script_cultivate_finish,
-        NOT_FOUND_UI: script_not_found_ui,
+        NOT_FOUND_UI: script_common_not_found_ui,
         RECEIVE_CUP: script_receive_cup,
         GOAL_FAILED: script_cultivate_goal_failed,
         CULTIVATE_LEVEL_RESULT: script_cultivate_level_result,
@@ -55,11 +84,49 @@ script_dicts: Dict[UmamusumeTaskType, dict[UI, callable]] = {
         CULTIVATE_URA_RACE_3: script_cultivate_goal_race,
         ACTIVITY_RESULT: script_cultivate_result,
         ACTIVITY_REWARD: script_cultivate_result
-    }
+    },
+    UmamusumeTaskType.UMAMUSUME_TASK_TYPE_TEAM_STADIUM: {
+        MAIN_MENU: ts_script_main_menu,
+        MAIN_MENU_CONTINUE: ts_script_main_menu,
+        RACE_HOME: ts_script_race_home,
+        TEAM_STADIUM_HOME: script_team_stadium_home,
+        TEAM_STADIUM_HOME_NA: script_team_stadium_home_na,
+        TEAM_STADIUM_SELECT_OPPONENT: script_team_stadium_select_opponent,
+        TEAM_STADIUM_BEFORE_RACE: script_team_stadium_before_race,
+        TEAM_STADIUM_CHECK_ALL_RESULTS: script_team_stadium_check_all_results,
+        TEAM_STADIUM_CHECK_RESULT: script_team_stadium_check_result,
+        TEAM_STADIUM_RESULTS: script_team_stadium_results,
+        TEAM_STADIUM_REWARD: script_team_stadium_reward,
+        TEAM_STADIUM_BEFORE_REWARD: script_team_stadium_before_reward,
+        TEAM_STADIUM_END: script_team_stadium_end,
+        TEAM_STADIUM_HIGH_SCORE: script_team_stadium_high_score,
+        TEAM_STADIUM_LEVEL_RESULT: script_team_stadium_level_result,
+        TIME_SALE_MAIN: script_time_sale_main,
+        SHOP_MAIN: script_shop_main,
+        INFO: ts_script_info,
+    },
+    UmamusumeTaskType.UMAMUSUME_TASK_TYPE_DONATE: {
+        MAIN_MENU: d_script_main_menu,
+        MAIN_MENU_CONTINUE: d_script_main_menu,
+        GUILD_MAIN: script_guild_home,
+        GUILD_MAIN_2: script_guild_home,
+        INFO: d_script_info,
+    },
+    UmamusumeTaskType.UMAMUSUME_TASK_TYPE_DAILY_RACE: {
+        MAIN_MENU: dr_script_main_menu,
+        MAIN_MENU_CONTINUE: dr_script_main_menu,
+        RACE_HOME: dr_script_race_home,
+        DAILY_RACE_HOME: script_daily_race_dr_home,
+        DAILY_RACE_SELECT_RACER: script_daily_race_select_racer,
+        TIME_SALE_MAIN: script_time_sale_main,
+        SHOP_MAIN: script_shop_main,
+        INFO: dr_script_info,
+    },
 }
 
 default_script_dict: Dict[UI, callable] = {
-
+    PRESS_START: lambda ctx: ctx.ctrl.click(719, 1, "Press start."),
+    NOT_FOUND_UI: script_common_not_found_ui
 }
 
 

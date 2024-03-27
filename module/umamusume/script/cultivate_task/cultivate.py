@@ -4,8 +4,22 @@ from bot.base.task import TaskStatus, EndTaskReason
 from module.umamusume.asset.point import *
 from module.umamusume.context import TurnInfo
 from module.umamusume.script.cultivate_task.const import SKILL_LEARN_PRIORITY_LIST
-from module.umamusume.script.cultivate_task.event.manifest import get_event_choice
+from module.umamusume.task import EndTaskReason as UEndTaskReason
 from module.umamusume.script.cultivate_task.parse import *
+from module.umamusume.script.cultivate_task.event import Event
+try:
+    from module.umamusume.script.ura.cultivate import ura_parse_cultivate_main_menu, ura_get_event_choice_by_effect
+    from module.umamusume.script.ura.skill_ai import ura_script_cultivate_learn_skill
+except ImportError:
+    def ura_get_event_choice_by_effect(ctx: UmamusumeContext):
+        return
+    ura_parse_cultivate_main_menu = parse_cultivate_main_menu
+
+    def ura_script_cultivate_learn_skill(ctx: UmamusumeContext,
+                                     learn_skill_list: list[list[str]],
+                                     learn_skill_blacklist: list[str]):
+        raise ImportError
+    print("未找到URA相关组件")
 
 log = logger.get_logger(__name__)
 
@@ -28,6 +42,8 @@ def script_cultivate_main_menu(ctx: UmamusumeContext):
 
     # 解析主界面
     if not ctx.cultivate_detail.turn_info.parse_main_menu_finish:
+        ura_parse_cultivate_main_menu(ctx, img)
+    if not ctx.cultivate_detail.turn_info.parse_main_menu_finish:
         parse_cultivate_main_menu(ctx, img)
 
     # 通过比赛id前两位判断是否有额外赛事
@@ -42,6 +58,10 @@ def script_cultivate_main_menu(ctx: UmamusumeContext):
     if (ctx.cultivate_detail.turn_info.uma_attribute.skill_point > ctx.cultivate_detail.learn_skill_threshold
             and not ctx.cultivate_detail.turn_info.turn_learn_skill_done):
         if len(ctx.cultivate_detail.learn_skill_list) > 0 or not ctx.cultivate_detail.learn_skill_only_user_provided:
+            ctx.ctrl.click_by_point(CULTIVATE_SKILL_LEARN)
+        elif has_extra_race and ctx.cultivate_detail.learn_skill_before_race \
+             and not ctx.cultivate_detail.learn_skill_before_race_done:
+            ctx.cultivate_detail.turn_info.racing = True
             ctx.ctrl.click_by_point(CULTIVATE_SKILL_LEARN)
         else:
             ctx.cultivate_detail.learn_skill_done = True
@@ -142,26 +162,53 @@ def script_main_menu(ctx: UmamusumeContext):
     if ctx.cultivate_detail.cultivate_finish:
         ctx.task.end_task(TaskStatus.TASK_STATUS_SUCCESS, EndTaskReason.COMPLETE)
         return
+    if ctx.cultivate_detail.no_tp or (time.time() - ctx.task.detail.
+            timestamp['no_tp'].get(ctx.task.device_name or "default", 0) < 300):
+        ctx.task.end_task(TaskStatus.TASK_STATUS_FAILED, UEndTaskReason.TP_NOT_ENOUGH)
+        return
+    if ts := ctx.task.detail.timestamp['borrowed'].get(ctx.task.device_name or "default", 0):
+        import croniter
+        import datetime
+        if time.time() < croniter.croniter("0 5 * * *", ts).get_next(datetime.datetime).timestamp():
+            ctx.task.end_task(TaskStatus.TASK_STATUS_FAILED, UEndTaskReason.BORROWED)
+            return
     ctx.ctrl.click_by_point(TO_CULTIVATE_SCENARIO_CHOOSE)
 
 
 # 剧本选择，育成准备-前往下一步
 def script_scenario_select(ctx: UmamusumeContext):
+    if ctx.cultivate_detail.no_tp or ctx.cultivate_detail.borrowed:
+        ctx.ctrl.click(360, 1220, "返回主界面")
+        return
     ctx.ctrl.click_by_point(TO_CULTIVATE_PREPARE_NEXT)
 
 
 # 赛马娘选择，育成准备-前往下一步
 def script_umamusume_select(ctx: UmamusumeContext):
+    if ctx.cultivate_detail.no_tp or ctx.cultivate_detail.borrowed:
+        ctx.ctrl.click(360, 1220, "返回主界面")
+        return
     ctx.ctrl.click_by_point(TO_CULTIVATE_PREPARE_NEXT)
 
 
 # TODO ？？？
 def script_extend_umamusume_select(ctx: UmamusumeContext):
+    if ctx.cultivate_detail.no_tp or ctx.cultivate_detail.borrowed:
+        ctx.ctrl.click(360, 1220, "返回主界面")
+        return
+    img = ctx.ctrl.get_screen(to_gray=True)[700:900, 50:550]
+    if image_match(img, REF_CULTIVATE_SUPPORT_CARD_EMPTY).find_match:
+        ctx.cultivate_detail.borrowed = True
+        ctx.task.detail.timestamp['borrowed'][ctx.task.device_name or "default"] = time.time()
+        return
     ctx.ctrl.click_by_point(TO_CULTIVATE_PREPARE_NEXT)
 
 
 # 支援卡选择
 def script_support_card_select(ctx: UmamusumeContext):
+    if ctx.cultivate_detail.no_tp:
+        ctx.ctrl.click(360, 1220, "返回主界面")
+        return
     img = ctx.ctrl.get_screen(to_gray=True)
     if image_match(img, REF_CULTIVATE_SUPPORT_CARD_EMPTY).find_match:
         ctx.ctrl.click_by_point(TO_FOLLOW_SUPPORT_CARD_SELECT)
@@ -206,9 +253,9 @@ def script_cultivate_event(ctx: UmamusumeContext):
         # 避免出现选项残缺的情况，这里重新解析一次
         img = ctx.ctrl.get_screen()
         event_name, selector_list = parse_cultivate_event(ctx, img)
-        choice_index = get_event_choice(ctx, event_name)
+        choice_index = ura_get_event_choice_by_effect(ctx) or Event(event_name)(ctx)
         # 意外情况容错
-        if choice_index - 1 > len(selector_list):
+        if choice_index > len(selector_list):
             choice_index = 1
         ctx.ctrl.click(selector_list[choice_index - 1][0], selector_list[choice_index - 1][1],
                        "事件选项-" + str(choice_index))
@@ -229,7 +276,15 @@ def script_cultivate_goal_race(ctx: UmamusumeContext):
             ctx.cultivate_detail.turn_info_history.append(ctx.cultivate_detail.turn_info)
         ctx.cultivate_detail.turn_info = TurnInfo()
         ctx.cultivate_detail.turn_info.date = current_date
+    ctx.cultivate_detail.turn_info.racing = True
+    if ctx.cultivate_detail.learn_skill_before_race and not ctx.cultivate_detail.turn_info.turn_learn_skill_done \
+            and not ctx.cultivate_detail.learn_skill_before_race_done:
+        ctx.ctrl.click(205, 1080, "技能")
+        return
     ctx.ctrl.click_by_point(CULTIVATE_GOAL_RACE_INTER_1)
+    # 避免赛后直接育成结束不学技能了
+    ctx.cultivate_detail.reset_skill_learn()
+    ctx.cultivate_detail.turn_info.turn_learn_skill_done = False
 
 
 # 选择比赛 TODO 这几个数字什么意思
@@ -351,7 +406,17 @@ def script_cultivate_result(ctx: UmamusumeContext):
 # 抓娃娃机-开始
 # 1.878s 2s 0.649s
 def script_cultivate_catch_doll(ctx: UmamusumeContext):
-    ctx.ctrl.click_by_point(CULTIVATE_CATCH_DOLL_START)
+    match ctx.cultivate_detail.catch_doll:
+        case 0:
+            ctx.ctrl.swipe(x1=365, y1=1117, x2=370, y2=1110, duration=1878, name="抓娃娃第一次")
+        case 1:
+            ctx.ctrl.swipe(x1=365, y1=1117, x2=370, y2=1110, duration=2000, name="抓娃娃第二次")
+        case 2:
+            ctx.ctrl.swipe(x1=365, y1=1117, x2=370, y2=1110, duration=649, name="抓娃娃第三次")
+        case _:
+            ctx.ctrl.click_by_point(CULTIVATE_CATCH_DOLL_START)
+    ctx.cultivate_detail.catch_doll += 1
+
 
 
 # 抓娃娃机-结果确认
@@ -371,7 +436,9 @@ def script_cultivate_finish(ctx: UmamusumeContext):
 # 学习技能
 def script_cultivate_learn_skill(ctx: UmamusumeContext):
     if ctx.cultivate_detail.learn_skill_done:
-        if ctx.cultivate_detail.learn_skill_selected:
+        "如果确定按钮点不动（G通道=130），就点返回"
+        img = cv2.cvtColor(ctx.current_screen, cv2.COLOR_BGR2RGB)[1080, 360][1]
+        if ctx.cultivate_detail.learn_skill_selected and img > 160:
             ctx.ctrl.click_by_point(CULTIVATE_LEARN_SKILL_CONFIRM)
         else:
             ctx.ctrl.click_by_point(RETURN_TO_CULTIVATE_FINISH)
@@ -392,6 +459,13 @@ def script_cultivate_learn_skill(ctx: UmamusumeContext):
             return
         else:
             learn_skill_list = ctx.cultivate_detail.learn_skill_list
+
+    try:
+        ura_script_cultivate_learn_skill(ctx, learn_skill_list, learn_skill_blacklist)
+    except (ImportError, Exception) as e:
+        print("出问题了", e)
+    else:
+        return
 
     # 遍历整页, 找出所有可点的技能
     skill_list = []

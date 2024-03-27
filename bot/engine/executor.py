@@ -110,6 +110,14 @@ class Executor:
         after_hook = manifest.after_hook
         controller = get_controller()
         try:
+            # bluestacks模拟器配置
+            if hasattr(task, 'device_name') and task.device_name:
+                from bot.conn.u2_ctrl import U2AndroidConfig
+                controller.config = U2AndroidConfig(_device_name=task.device_name,
+                                                    delay=controller.config.delay,
+                                                    bluestacks_config_path=controller.config.bluestacks_config_path,
+                                                    bluestacks_config_keyword=
+                                                    controller.config.bluestacks_config_keyword)
             # 初始化环境
             controller.init_env()
             # 构建上下文

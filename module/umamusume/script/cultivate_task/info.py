@@ -1,5 +1,6 @@
 import time
 
+from datetime import datetime as dt
 import cv2
 
 from bot.base.task import TaskStatus, EndTaskReason
@@ -43,7 +44,14 @@ TITLE = [
     "活动剧情解锁",
     "确认",
     "回复训练值",
-    "选择养成难度"
+    "选择养成难度",
+    "公告",
+    "继续养成",
+    "关注训练员",
+    "日期变化",
+    "连接已断开",
+    "数据下载",
+    "解锁剧情",
 ]
 
 
@@ -68,16 +76,24 @@ def script_info(ctx: UmamusumeContext):
         if title_text == TITLE[2]:
             ctx.ctrl.click_by_point(NETWORK_ERROR_CONFIRM)
         if title_text == TITLE[3]:
+            clock_used = ctx.task.detail.timestamp['clock_used'].setdefault(ctx.task.device_name or "default", [0, 0.0])
+            if dt.now() > croniter.croniter("0 5 * * *", dt.fromtimestamp(clock_used[1])).get_next(dt):
+                clock_used[0] = 0
+            clock_used[1] = time.time()
             # TODO 这是为何呢
             if ctx.prev_ui is INFO:
                 ctx.cultivate_detail.clock_used -= 1
-            if ctx.cultivate_detail.clock_use_limit > ctx.cultivate_detail.clock_used:
+                clock_used[0] -= 1
+            if (ctx.cultivate_detail.clock_use_limit > ctx.cultivate_detail.clock_used and
+                ctx.cultivate_detail.clock_use_day_limit > clock_used[0]):
                 ctx.ctrl.click_by_point(RACE_FAIL_CONTINUE_USE_CLOCK)
                 ctx.cultivate_detail.clock_used += 1
+                clock_used[0] += 1
             else:
                 ctx.ctrl.click_by_point(RACE_FAIL_CONTINUE_CANCEL)
-            log.debug("闹钟限制%s,已使用%s", str(ctx.cultivate_detail.clock_use_limit),
-                      str(ctx.cultivate_detail.clock_used))
+            log.debug("闹钟场限制%s,已使用%s；闹钟日限制%s,已使用%s", str(ctx.cultivate_detail.clock_use_limit),
+                      str(ctx.cultivate_detail.clock_used),
+                      str(ctx.cultivate_detail.clock_use_day_limit), str(clock_used[0]))
         if title_text == TITLE[4]:
             ctx.ctrl.click_by_point(GET_TITLE_CONFIRM)
         if title_text == TITLE[5]:
@@ -126,25 +142,49 @@ def script_info(ctx: UmamusumeContext):
             ctx.ctrl.click_by_point(RECEIVE_GIFT)
         if title_text == TITLE[22]:
             ctx.ctrl.click_by_point(RECEIVE_GIFT_SUCCESS_CLOSE)
-        if title_text == TITLE[23]:
+        if title_text == TITLE[23] or title_text == TITLE[35]:
             ctx.ctrl.click_by_point(UNLOCK_STORY_TO_HOME_PAGE)
+            ctx.ctrl.click_by_point(UNLOCK_STORY_TO_HOME_PAGE2)
         if title_text == TITLE[24]:
             ctx.ctrl.click_by_point(WIN_TIMES_NOT_ENOUGH_RETURN)
         if title_text == TITLE[25]:
             ctx.ctrl.click_by_point(ACTIVITY_STORY_UNLOCK_CONFIRM)
+            ctx.ctrl.click_by_point(ACTIVITY_STORY_UNLOCK_CONFIRM2)
         if title_text == TITLE[26]:
-            if not ctx.cultivate_detail.allow_recover_tp:
-                ctx.task.end_task(TaskStatus.TASK_STATUS_FAILED, UEndTaskReason.TP_NOT_ENOUGH)
-            else:
+            if ctx.cultivate_detail.allow_recover_tp_drink or \
+                    ctx.cultivate_detail.allow_recover_tp_diamond:
                 ctx.ctrl.click_by_point(TO_RECOVER_TP)
+            else:
+                ctx.cultivate_detail.no_tp = True
+                ctx.task.detail.timestamp['no_tp'][ctx.task.device_name or "default"] = dt.now().timestamp()
+                ctx.ctrl.click(200, 830, "取消回复训练值")
         if title_text == TITLE[27]:
             if image_match(ctx.ctrl.get_screen(to_gray=True), REF_RECOVER_TP_1).find_match:
-                ctx.ctrl.click_by_point(USE_TP_DRINK)
-            elif image_match(ctx.ctrl.get_screen(to_gray=True), REF_RECOVER_TP_2).find_match:
+                if ctx.cultivate_detail.allow_recover_tp_drink:
+                    ctx.ctrl.click_by_point(USE_TP_DRINK)
+                elif ctx.cultivate_detail.allow_recover_tp_diamond:
+                    ctx.ctrl.click_by_point(USE_DIAMOND)
+            elif image_match(ctx.ctrl.get_screen(to_gray=True), REF_RECOVER_TP_2).find_match or \
+                    image_match(ctx.ctrl.get_screen(to_gray=True), REF_RECOVER_TP_4).find_match:
+                ctx.ctrl.click_by_point(USE_DIAMOND_PLUS_MARK)
+                time.sleep(0.1)
                 ctx.ctrl.click_by_point(USE_TP_DRINK_CONFIRM)
-            elif image_match(ctx.ctrl.get_screen(to_gray=True), REF_RECOVER_TP_3).find_match:
+            elif image_match(ctx.ctrl.get_screen(to_gray=True), REF_RECOVER_TP_3).find_match or \
+                    image_match(ctx.ctrl.get_screen(to_gray=True), REF_RECOVER_TP_5).find_match:
                 ctx.ctrl.click_by_point(USE_TP_DRINK_RESULT_CLOSE)
         if title_text == TITLE[28]:
             ctx.ctrl.click_by_point(SELECT_DIFFICULTY)
+        if title_text == TITLE[29]:
+            ctx.ctrl.click_by_point(CLOSE_NEWS)
+        if title_text == TITLE[30]:
+            ctx.ctrl.click_by_point(CULTIVATE_CONTINUE)
+        if title_text == TITLE[31]:
+            ctx.ctrl.click_by_point(FOLLOW_CANCEL)
+        if title_text == TITLE[32]:
+            ctx.ctrl.click_by_point(DATE_CHANGE_CONFIRM)
+        if title_text == TITLE[33]:
+            ctx.ctrl.click_by_point(CONNECTION_LOST_RESUME)
+        if title_text == TITLE[34]:
+            ctx.ctrl.click(520, 830, "数据下载确认")
         time.sleep(1)
 

@@ -170,6 +170,10 @@ class U2AndroidController(AndroidController):
         self.u2client.app_start(name)
         log.info("starting app <" + name + ">")
 
+    def stop_app(self, name):
+        self.u2client.app_stop(name)
+        log.info("stopping app <" + name + ">")
+
     # get_front_activity 获取前台正在运行的应用
     def get_front_activity(self):
         # shell命令，dumpsys是一个Android系统的调试工具，它可以获取系统的各种信息。
