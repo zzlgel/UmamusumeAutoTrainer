@@ -25,9 +25,9 @@
               <div class="row">
                 <div class="col">
                   <div class="form-group">
-                    <label for="selectSernaio">⭐ 剧本选择</label>
-                    <select class="form-control" id="selectSernaio">
-                      <option :value=1>URA</option>
+                    <label for="selectScenario">⭐ 剧本选择</label>
+                    <select v-model="selectedScenario" class="form-control" id="selectSernaio">
+                      <option v-for="scenario in scenarioList" :value="scenario">{{scenario.name}}</option>
                     </select>
                   </div>
                 </div>
@@ -491,6 +491,18 @@ export default {
         {id: 4, name: "日常赛事"},
         {id: 0, name: "自定义"},
       ],
+      scenarioList:[
+        {id: 1, name: "URA"},
+        {id: 2, name: "青春杯"},
+        {id: 3, name: "巅峰杯"},
+        {id: 4, name: "偶像杯"},
+        {id: 5, name: "女神杯"},
+        {id: 6, name: "凯旋门"},
+        {id: 7, name: "UAF"},
+        {id: 8, name: "大丰食祭"},
+        {id: 9, name: "机械杯"},
+        {id: 10, name: "闪耀传说"},
+      ],
       umamusumeList:[
         {id:1, name:'特别周'},
         {id:2, name:'无声铃鹿'},
@@ -862,6 +874,7 @@ export default {
       cron: "* * * * *",
       my_script: "",
       
+      selectedScenario: undefined,
       selectedUmamusumeTaskType: undefined,
       selectedSupportCard: undefined,
       extraRace: [],
@@ -929,6 +942,7 @@ export default {
     initSelect: function (){
       this.selectedSupportCard = this.umausumeSupportCardList[0]
       this.selectedUmamusumeTaskType = this.umamusumeTaskTypeList[0]
+      this.selectedScenario = this.scenarioList[0]
     },
     switchRaceList: function(){
       this.showRaceList = !this.showRaceList
@@ -957,6 +971,7 @@ export default {
         console.log(learn_skill_list)
         var learn_skill_blacklist = this.skillLearnBlacklist ? this.skillLearnBlacklist.split(",").map(item => item.trim()) : []
         payload.attachment_data = {
+          "scenario": this.selectedScenario.id,
           "expect_attribute": [this.expectSpeedValue, this.expectStaminaValue, this.expectPowerValue, this.expectWillValue, this.expectIntelligenceValue],
           "follow_support_card_name": this.selectedSupportCard.name,
           "follow_support_card_level": this.supportCardLevel,

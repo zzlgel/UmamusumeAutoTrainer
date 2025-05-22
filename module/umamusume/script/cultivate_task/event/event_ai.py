@@ -167,8 +167,8 @@ def _attribute(ctx: UmamusumeContext) -> float:
 
 
 def _valid_date_list(ctx: UmamusumeContext) -> list[int]:
-    if not hasattr(ctx.task.detail, "scenario_name") or ctx.task.detail.scenario_name == '1' \
-            or ctx.task.detail.scenario_name == 1 or not ctx.task.detail.scenario_name:
+    if not hasattr(ctx.task.detail, "scenario") or ctx.task.detail.scenario == '1' \
+            or ctx.task.detail.scenario == 1 or not ctx.task.detail.scenario:
         valid_dates = list(range(1, 73))
         valid_dates.extend((97, 98, 99))
     else:

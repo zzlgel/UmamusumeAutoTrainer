@@ -3,7 +3,7 @@ from ..database.klass import Propers, Skill, _Nameable, TalentSkill
 from copy import copy
 
 
-class SkillData(_Nameable):
+class SkillData(Skill):
     """养成结束即将学习的技能"""
     _name_index = 47
     j_name: str

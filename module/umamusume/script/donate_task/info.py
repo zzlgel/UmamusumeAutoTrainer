@@ -8,6 +8,7 @@ TITLE = {
     "道具捐赠请求": script_donate_requests,
     "捐赠确认": script_donate_confirm,
     "捐赠成功": script_donate_success,
+    "练习搭档分享": lambda ctx: ctx.ctrl.click(140, 1185, "取消分享"),
 }
 
 

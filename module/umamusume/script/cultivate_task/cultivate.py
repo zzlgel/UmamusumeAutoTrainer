@@ -169,7 +169,14 @@ def script_scenario_select(ctx: UmamusumeContext):
     if ctx.cultivate_detail.no_tp or ctx.cultivate_detail.borrowed:
         ctx.ctrl.click(360, 1220, "返回主界面")
         return
-    ctx.ctrl.click_by_point(TO_CULTIVATE_PREPARE_NEXT)
+    for _ in range(20):
+        img = ctx.ctrl.get_screen()
+        if find_scenario(ctx, img, ctx.cultivate_detail.scenario.value):
+            ctx.ctrl.click_by_point(TO_CULTIVATE_PREPARE_NEXT)
+            return
+    else:
+        # 未找到目标剧本
+        ctx.ctrl.click(360, 1220, "返回主界面")
 
 
 def script_umamusume_select(ctx: UmamusumeContext):

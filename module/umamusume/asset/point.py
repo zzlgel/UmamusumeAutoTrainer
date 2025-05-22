@@ -151,9 +151,9 @@ TIME_SALE_COMMON_CONFIRM = ClickPoint(ClickPointType.CLICK_POINT_TYPE_COORDINATE
 # donate
 TO_GUILD = ClickPoint(ClickPointType.CLICK_POINT_TYPE_COORDINATE, None, Coordinate(60, 1100), "前往社团", None)
 GO_HOME_FROM_GUILD = GO_HOME_FROM_RACE
-DONATE_TO_REQ_LIST = ClickPoint(ClickPointType.CLICK_POINT_TYPE_COORDINATE, None, Coordinate(80, 610), "前往请求列表", None)
+DONATE_TO_REQ_LIST = ClickPoint(ClickPointType.CLICK_POINT_TYPE_COORDINATE, None, Coordinate(130, 610), "前往请求列表", None)
 DONATE_RETURN_FROM_REQ = ClickPoint(ClickPointType.CLICK_POINT_TYPE_COORDINATE, None, Coordinate(360, 1180), "关闭", None)
-DONATE_TO_ASK = ClickPoint(ClickPointType.CLICK_POINT_TYPE_COORDINATE, None, Coordinate(50, 1090), "前往要鞋", None)
+DONATE_TO_ASK = ClickPoint(ClickPointType.CLICK_POINT_TYPE_COORDINATE, None, Coordinate(120, 1090), "前往要鞋", None)
 DONATE_ASK_1 = ClickPoint(ClickPointType.CLICK_POINT_TYPE_COORDINATE, None, Coordinate(80, 330), "请求-1", None)
 DONATE_ASK_2 = ClickPoint(ClickPointType.CLICK_POINT_TYPE_COORDINATE, None, Coordinate(220, 330), "请求-2", None)
 DONATE_ASK_3 = ClickPoint(ClickPointType.CLICK_POINT_TYPE_COORDINATE, None, Coordinate(360, 330), "请求-3", None)

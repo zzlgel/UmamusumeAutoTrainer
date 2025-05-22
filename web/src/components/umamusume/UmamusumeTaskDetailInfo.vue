@@ -2,7 +2,7 @@
   <div>
     <div v-if="task.task_type === 1">
       <div>
-        <span>剧本: URA</span>
+        <span>剧本: {{scenario[task.detail?.scenario]}}</span>
       </div>
       <div>
         <span>目标数值: {{task.detail?.expect_attribute}}</span>
@@ -92,7 +92,19 @@ export default {
         0: "EASY",
         1: "NORMAL",
         2: "HARD",
-      }
+      },
+      scenario:{
+        1: "URA",
+        2: "青春杯",
+        3: "巅峰杯",
+        4: "偶像杯",
+        5: "女神杯",
+        6: "凯旋门",
+        7: "UAF",
+        8: "大丰食祭",
+        9: "机械杯",
+        10: "闪耀传说",
+      },
     }
   }
 }

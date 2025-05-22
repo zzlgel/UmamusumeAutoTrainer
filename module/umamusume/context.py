@@ -252,6 +252,7 @@ class TurnInfo:
 
 
 class CultivateContextDetail:
+    scenario: ScenarioType
     turn_info: TurnInfo | None
     turn_info_history: list[TurnInfo]
     expect_attribute: list[int] | None
@@ -286,6 +287,7 @@ class CultivateContextDetail:
     borrowed: bool
 
     def __init__(self):
+        self.scenario = ScenarioType(0)
         self.expect_attribute = None
         self.turn_info = TurnInfo()
         self.turn_info_history = []
@@ -400,6 +402,7 @@ def build_context(task: UmamusumeTask, ctrl) -> UmamusumeContext:
     match task.task_type:
         case UmamusumeTaskType.UMAMUSUME_TASK_TYPE_CULTIVATE:
             detail = CultivateContextDetail()
+            detail.scenario = ScenarioType(task.detail.scenario)
             detail.expect_attribute = task.detail.expect_attribute
             detail.follow_support_card_name = task.detail.follow_support_card_name
             detail.follow_support_card_level = task.detail.follow_support_card_level

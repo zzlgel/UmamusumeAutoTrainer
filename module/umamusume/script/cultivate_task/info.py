@@ -10,6 +10,7 @@ from bot.recog.ocr import ocr_line, find_similar_text
 from module.umamusume.asset.point import *
 from module.umamusume.asset.ui import INFO
 from module.umamusume.context import UmamusumeContext
+from module.umamusume.script.common.info import TITLE as common_info
 import bot.base.log as logger
 
 log = logger.get_logger(__name__)
@@ -51,6 +52,7 @@ TITLE = [
     "连接已断开",
     "数据下载",
     "解锁剧情",
+    "确定因子确认",
 ]
 
 
@@ -63,7 +65,7 @@ def script_info(ctx: UmamusumeContext):
         title_img = img[pos[0][1] - 5:pos[1][1] + 5, pos[0][0] + 150: pos[1][0] + 405]
         title_text = ocr_line(title_img)
         log.debug(title_text)
-        title_text = find_similar_text(title_text, TITLE, 0.8)
+        title_text = find_similar_text(title_text, TITLE + list(common_info), 0.8)
         if title_text == "":
             log.warning("未知的选项框")
             return
@@ -184,4 +186,8 @@ def script_info(ctx: UmamusumeContext):
             ctx.ctrl.click_by_point(CONNECTION_LOST_RESUME)
         if title_text == TITLE[34]:
             ctx.ctrl.click(520, 830, "数据下载确认")
+        if title_text == TITLE[36]:
+            ctx.ctrl.click_by_point(CULTIVATE_FACTOR_RECEIVE_CONFIRM)
+        if title_text not in TITLE and title_text in common_info:
+            common_info[title_text](ctx)
         time.sleep(1)

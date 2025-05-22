@@ -4,7 +4,7 @@ from bot.base.common import CronJobConfig
 
 
 class TaskDetail:
-    scenario_name: str
+    scenario: int
     expect_attribute: list[int]
     follow_support_card_name: str
     follow_support_card_level: int
@@ -102,7 +102,7 @@ def build_task(task_execute_mode: TaskExecuteMode, task_type: int,
         td.allow_recover_tp_diamond = attachment_data['allow_recover_tp_diamond']
         td.extra_weight = attachment_data['extra_weight']
         td.cultivate_result = {}
-        # td.scenario_name = attachment_data['scenario_name']
+        td.scenario = attachment_data['scenario']
     elif task_type == 2:
         td.opponent_index = attachment_data['opponent_index']
         td.opponent_stamina = attachment_data['opponent_stamina']

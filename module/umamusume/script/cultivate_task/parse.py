@@ -7,6 +7,7 @@ import numpy
 from bot.recog.image_matcher import image_match, compare_color_equal
 from bot.recog.ocr import ocr_line, find_similar_text
 from module.umamusume.asset.race_data import RACE_LIST
+from module.umamusume.asset.scenario import SCENARIO_LIST
 from module.umamusume.context import UmamusumeContext, SupportCardInfo
 from module.umamusume.asset import *
 from module.umamusume.define import *
@@ -386,6 +387,17 @@ def find_race(ctx: UmamusumeContext, img, race_id: int = 0) -> bool:
             match_result.matched_area[0][0]:match_result.matched_area[1][0]] = 0
         else:
             break
+    return False
+
+
+def find_scenario(ctx: UmamusumeContext, img, scenario_id: int = 0) -> bool:
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    target_race_template = SCENARIO_LIST[scenario_id][2]
+    if target_race_template is not None:
+        if image_match(img, target_race_template).find_match:
+            return True
+    ctx.ctrl.click(700, 585,
+                   "寻找剧本：" + str(SCENARIO_LIST[scenario_id][1]))
     return False
 
 
