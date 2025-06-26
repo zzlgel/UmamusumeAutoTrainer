@@ -32,6 +32,8 @@ def image_match(target, template: Template) -> ImageMatchResult:
 
 
 def template_match(target, template, accuracy: float = 0.95) -> ImageMatchResult:
+    if template is None:
+        raise ValueError("Template image is None. Please ensure the template is loaded properly.")
     th, tw = template.shape[::]
     result = cv2.matchTemplate(target, template, cv2.TM_CCOEFF_NORMED)
     min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)

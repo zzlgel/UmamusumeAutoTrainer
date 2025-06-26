@@ -102,8 +102,6 @@ def build_task(task_execute_mode: TaskExecuteMode, task_type: int,
         td.allow_recover_tp_drink = attachment_data['allow_recover_tp_drink']
         td.allow_recover_tp_diamond = attachment_data['allow_recover_tp_diamond']
         td.extra_weight = attachment_data['extra_weight']
-    # td.config_stop_at_factor_select = True # 暂停以便重新roll因子Add commentMore actions
-    td.config_stop_at_factor_select = False # 直接接受因子
         td.cultivate_result = {}
         td.scenario = attachment_data['scenario']
     elif task_type == 2:

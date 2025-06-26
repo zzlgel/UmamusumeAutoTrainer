@@ -42,8 +42,9 @@ def script_cultivate_main_menu(ctx: UmamusumeContext):
         ctx.cultivate_detail.reset_skill_learn()
 
     # 解析主界面
-    if not ctx.cultivate_detail.turn_info.parse_main_menu_finish:
-        ura_parse_cultivate_main_menu(ctx, img)
+    # 暂时数据不支持Ceilopty大佬的方法
+    # if not ctx.cultivate_detail.turn_info.parse_main_menu_finish:
+    #     ura_parse_cultivate_main_menu(ctx, img)
     if not ctx.cultivate_detail.turn_info.parse_main_menu_finish:
         parse_cultivate_main_menu(ctx, img)
 

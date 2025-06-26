@@ -222,34 +222,34 @@ class DataBase:
 
     @classmethod
     def initialize(cls):
-        cls.events = {x.id: x for x in cls._try_deserialize(EVENT_NAME_FILEPATH,
-                                                            Event)}
-        cls.success_event = {x.id: x for x in cls._try_deserialize(SUCCESS_EVENT_FILEPATH,
-                                                                   SuccessEvent)}
-        cls.names = NameManager(cls._try_deserialize(NAMES_FILEPATH,
-                                                     object_hook=name_object_hook))
-        cls.skills.default = SkillManager(cls._try_deserialize(SKILLS_FILEPATH,
-                                                               SkillData))
-        TalentSkill.skills = cls.skills.default
-        cls.talent_skill = {int(x[0]): list(map(TalentSkill, x[1]))
-                            for x in cls._try_deserialize(TALENT_SKILL_FILEPATH).items()}
-        cls.factor_ids.update((int(x[0]), x[1])
-                              for x in cls._try_deserialize(FACTOR_IDS_FILEPATH).items())
-        cls.text = TextManager(cls._try_deserialize(TEXT_DATA_FILEPATH))
-        cls.text_alter = TextManager(cls._try_deserialize(TEXT_J_DATA_FILEPATH))
-        cls.chara = {x.id: x for x in cls._try_deserialize(CHARA_DATA_FILEPATH,
-                                                           Chara)}
-        cls.support_card = {x.id: x for x in cls._try_deserialize(SUPPORT_CARD_DATA_FILEPATH,
-                                                                  SupportCard)}
-        cls.support_card_chara = {x.id: SupportCardChara(x) for x in cls.support_card.values()}
-        cls.card = {x.id: x for x in cls._try_deserialize(CARD_DATA_FILEPATH,
-                                                          Card)}
-        cls.support_card_effect = SupportCardEffect(cls._try_deserialize(SUPPORT_CARD_EFFECT_TABLE_FILEPATH))
-        cls.support_card_unique_effect = {x.id: x for x in cls._try_deserialize(SUPPORT_CARD_UNIQUE_EFFECT_FILEPATH,
-                                                                                SupportCardUniqueEffect)}
-        Card.set_text(cls.text)
-        Card.set_text_alter(cls.text_alter)
-        SupportCard.set_chara(cls.chara)
+        # cls.events = {x.id: x for x in cls._try_deserialize(EVENT_NAME_FILEPATH,
+        #                                                     Event)}
+        # cls.success_event = {x.id: x for x in cls._try_deserialize(SUCCESS_EVENT_FILEPATH,
+        #                                                            SuccessEvent)}
+        # cls.names = NameManager(cls._try_deserialize(NAMES_FILEPATH,
+        #                                              object_hook=name_object_hook))
+        # cls.skills.default = SkillManager(cls._try_deserialize(SKILLS_FILEPATH,
+        #                                                        SkillData))
+        # TalentSkill.skills = cls.skills.default
+        # cls.talent_skill = {int(x[0]): list(map(TalentSkill, x[1]))
+        #                     for x in cls._try_deserialize(TALENT_SKILL_FILEPATH).items()}
+        # cls.factor_ids.update((int(x[0]), x[1])
+        #                       for x in cls._try_deserialize(FACTOR_IDS_FILEPATH).items())
+        # cls.text = TextManager(cls._try_deserialize(TEXT_DATA_FILEPATH))
+        # cls.text_alter = TextManager(cls._try_deserialize(TEXT_J_DATA_FILEPATH))
+        # cls.chara = {x.id: x for x in cls._try_deserialize(CHARA_DATA_FILEPATH,
+        #                                                    Chara)}
+        # cls.support_card = {x.id: x for x in cls._try_deserialize(SUPPORT_CARD_DATA_FILEPATH,
+        #                                                           SupportCard)}
+        # cls.support_card_chara = {x.id: SupportCardChara(x) for x in cls.support_card.values()}
+        # cls.card = {x.id: x for x in cls._try_deserialize(CARD_DATA_FILEPATH,
+        #                                                   Card)}
+        # cls.support_card_effect = SupportCardEffect(cls._try_deserialize(SUPPORT_CARD_EFFECT_TABLE_FILEPATH))
+        # cls.support_card_unique_effect = {x.id: x for x in cls._try_deserialize(SUPPORT_CARD_UNIQUE_EFFECT_FILEPATH,
+        #                                                                         SupportCardUniqueEffect)}
+        # Card.set_text(cls.text)
+        # Card.set_text_alter(cls.text_alter)
+        # SupportCard.set_chara(cls.chara)
 
         cls.success_events = success_events
 
