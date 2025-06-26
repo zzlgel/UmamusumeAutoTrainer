@@ -116,7 +116,7 @@ def script_cultivate_training_select(ctx: UmamusumeContext):
                 while parse_train_type(ctx, img) != TrainingType(i + 1) and retry < max_retry:
                     if retry > 2:
                         ctx.ctrl.click_by_point(TRAINING_POINT_LIST[i])
-                    time.sleep(0.2)
+                    time.sleep(0.1)
                     img = ctx.ctrl.get_screen()
                     retry += 1
                 if retry == max_retry:
@@ -334,7 +334,12 @@ def script_cultivate_finish(ctx: UmamusumeContext):
         ctx.cultivate_detail.cultivate_finish = True
         ctx.ctrl.click_by_point(CULTIVATE_FINISH_LEARN_SKILL)
     else:
-        ctx.ctrl.click_by_point(CULTIVATE_FINISH_CONFIRM)
+        if ctx.task.detail.config_stop_at_factor_select:
+            log.info("Stopping before factor selection")
+            ctx.task.end_task(TaskStatus.TASK_STATUS_SUCCESS, EndTaskReason.COMPLETE)
+        else:
+            log.info("Auto accepting factor")
+            ctx.ctrl.click_by_point(CULTIVATE_FINISH_CONFIRM)
 
 
 def script_cultivate_learn_skill(ctx: UmamusumeContext):
@@ -466,6 +471,8 @@ def script_factor_receive(ctx: UmamusumeContext):
         time.sleep(2)
         parse_factor(ctx)
 
+def script_factor_double_confirm(ctx: UmamusumeContext):
+    ctx.ctrl.click_by_point(CULTIVATE_FACTOR_DOUBLE_CONFIRM)
 
 def script_historical_rating_update(ctx: UmamusumeContext):
     ctx.ctrl.click_by_point(HISTORICAL_RATING_UPDATE_CONFIRM)

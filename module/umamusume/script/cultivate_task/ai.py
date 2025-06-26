@@ -92,9 +92,14 @@ def get_operation(ctx: UmamusumeContext) -> TurnOperation | None:
         medic = True
 
     trip = False
-    if not ctx.cultivate_detail.turn_info.medic_room_available and (ctx.cultivate_detail.turn_info.date <= 36 and ctx.cultivate_detail.turn_info.motivation_level.value <= 3 and ctx.cultivate_detail.turn_info.remain_stamina < 90 and not support_card_max >= 3
-                                                                    or 40 < ctx.cultivate_detail.turn_info.date <= 60 and ctx.cultivate_detail.turn_info.motivation_level.value <= 4 and ctx.cultivate_detail.turn_info.remain_stamina < 90
-                                                                    or 64 < ctx.cultivate_detail.turn_info.date <= 99 and ctx.cultivate_detail.turn_info.motivation_level.value <= 4 and ctx.cultivate_detail.turn_info.remain_stamina < 90):
+    # if not ctx.cultivate_detail.turn_info.medic_room_available and (ctx.cultivate_detail.turn_info.date <= 36 and ctx.cultivate_detail.turn_info.motivation_level.value <= 3 and ctx.cultivate_detail.turn_info.remain_stamina < 90 and not support_card_max >= 3
+    #                                                                 or 40 < ctx.cultivate_detail.turn_info.date <= 60 and ctx.cultivate_detail.turn_info.motivation_level.value <= 4 and ctx.cultivate_detail.turn_info.remain_stamina < 90
+    #                                                                 or 64 < ctx.cultivate_detail.turn_info.date <= 99 and ctx.cultivate_detail.turn_info.motivation_level.value <= 4 and ctx.cultivate_detail.turn_info.remain_stamina < 90):
+    #     trip = True
+
+    if not rest and not ctx.cultivate_detail.turn_info.medic_room_available and (ctx.cultivate_detail.turn_info.date <= 36 and ctx.cultivate_detail.turn_info.motivation_level.value <= 3 and ctx.cultivate_detail.turn_info.remain_stamina < 80 and not support_card_max >= 3
+                                                                    or 40 < ctx.cultivate_detail.turn_info.date <= 60 and ctx.cultivate_detail.turn_info.motivation_level.value <= 3 and ctx.cultivate_detail.turn_info.remain_stamina < 90
+                                                                    or 64 < ctx.cultivate_detail.turn_info.date <= 99 and ctx.cultivate_detail.turn_info.motivation_level.value <= 3 and ctx.cultivate_detail.turn_info.remain_stamina < 90):
         trip = True
 
     rest = False
@@ -179,9 +184,13 @@ def get_training_basic_attribute_score(ctx: UmamusumeContext, turn_info: TurnInf
     if expect_attribute_all_complete:
         log.debug("育成目标属性已达成")
         for i in range(len(turn_info.training_info_list)):
-            incr = [turn_info.training_info_list[i].speed_incr, turn_info.training_info_list[i].stamina_incr,
-                    turn_info.training_info_list[i].power_incr, turn_info.training_info_list[i].will_incr,
-                    turn_info.training_info_list[i].intelligence_incr]
+            #incr = [turn_info.training_info_list[i].speed_incr, turn_info.training_info_list[i].stamina_incr,
+            #        turn_info.training_info_list[i].power_incr, turn_info.training_info_list[i].will_incr,
+            #        turn_info.training_info_list[i].intelligence_incr]
+            # When target reached, favor speed & stamina only
+            incr = [turn_info.training_info_list[i].speed_incr, turn_info.training_info_list[i].stamina_incr * 0.8,
+                    turn_info.training_info_list[i].power_incr * 0.25, turn_info.training_info_list[i].will_incr * 0.01,
+                    turn_info.training_info_list[i].intelligence_incr * 0.1]
             rating_incr = 0
             for j in range(len(incr)):
                 if incr[j] != 0:
@@ -198,7 +207,9 @@ def get_training_basic_attribute_score(ctx: UmamusumeContext, turn_info: TurnInf
                     attr_difference = turn_expect_attribute[j] - turn_uma_attr[j]
                     # rating_incr += get_basic_status_score(incr[j] + turn_uma_attr[j]) - get_basic_status_score(turn_uma_attr[j])
                     if j == 3:
-                        rating_incr += incr[j]
+                        #直接忽略毅力增长
+                        #rating_incr += incr[j]
+                        rating_incr += 0
                     else:
                         if attr_difference >= incr[j]:
                             rating_incr += incr[j]
@@ -208,9 +219,11 @@ def get_training_basic_attribute_score(ctx: UmamusumeContext, turn_info: TurnInf
                             rating_incr += attr_difference
                             overflow_incr = incr[j]-attr_difference
                             if cultivate_expect_attribute[j] - turn_expect_attribute[j] > overflow_incr:
-                                rating_incr += 0.25 * overflow_incr
+                                # rating_incr += 0.25 * overflow_incr
+                                rating_incr += 0.20 * overflow_incr
                             else:
-                                rating_incr += 0.25 * (cultivate_expect_attribute[j] - turn_expect_attribute[j])
+                                #rating_incr += 0.25 * (cultivate_expect_attribute[j] - turn_expect_attribute[j])
+                                rating_incr += 0.20 * (cultivate_expect_attribute[j] - turn_expect_attribute[j])
             # rating_incr += turn_info.training_info_list[i].skill_point_incr * 1.45
             result.append(rating_incr * (1 + extra_weight[i]))
         log.debug("每个训练的原始属性增长得分：" + str(result))

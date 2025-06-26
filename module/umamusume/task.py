@@ -17,6 +17,7 @@ class TaskDetail:
     allow_recover_tp: bool
     cultivate_progress_info: dict
     extra_weight: list
+    config_stop_at_factor_select: bool
 
 
 class EndTaskReason(Enum):
@@ -56,6 +57,8 @@ def build_task(task_execute_mode: TaskExecuteMode, task_type: int,
     td.learn_skill_only_user_provided = attachment_data['learn_skill_only_user_provided']
     td.allow_recover_tp = attachment_data['allow_recover_tp']
     td.extra_weight = attachment_data['extra_weight']
+    # td.config_stop_at_factor_select = True # 暂停以便重新roll因子Add commentMore actions
+    td.config_stop_at_factor_select = False # 直接接受因子
     td.cultivate_result = {}
     # td.scenario_name = attachment_data['scenario_name']
     ut.detail = td

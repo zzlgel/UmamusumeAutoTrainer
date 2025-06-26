@@ -1,29 +1,41 @@
+# 飞桨相关ocr改动文档：https://paddlepaddle.github.io/PaddleOCR/main/version3.x/pipeline_usage/OCR.html#22-python
+import cv2
 import paddleocr
 from difflib import SequenceMatcher
 import bot.base.log as logger
 
 log = logger.get_logger(__name__)
 
-OCR_JP = paddleocr.PaddleOCR(lang="japan", show_log=False, use_angle_cls=False)
-OCR_CH = paddleocr.PaddleOCR(lang="ch", show_log=False, use_angle_cls=False)
+OCR_JP = paddleocr.PaddleOCR(lang="japan", 
+                             use_doc_orientation_classify=False, 
+                             use_doc_unwarping=False, 
+                             use_textline_orientation=False)
+OCR_CH = paddleocr.PaddleOCR(lang="ch", 
+                             use_doc_orientation_classify=False, 
+                             use_doc_unwarping=False, 
+                             use_textline_orientation=False,
+                             device="gpu:0")
 
 
 # ocr 文字识别图片
 def ocr(img, lang="ch"):
     if lang == "ch":
-        return OCR_CH.ocr(img, cls=False)
+        if len(img.shape) == 2:
+            img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)  # 转换为三通道彩色图像
+        return OCR_CH.predict(img)
     if lang == "japan":
-        return OCR_JP.ocr(img, cls=False)
+        return OCR_JP.predict(img)
 
 
 # ocr_line 文字识别图片，返回所有出现的文字
+# # 飞桨相关ocr改动文档：https://paddlepaddle.github.io/PaddleOCR/main/version3.x/pipeline_usage/OCR.html#22-python
 def ocr_line(img, lang="ch"):
     ocr_result = ocr(img, lang)
     text = ""
-    ocr_result = ocr_result[0]
+
     for text_info in ocr_result:
-        if len(text_info) > 0:
-            text += text_info[1][0]
+        if len(text_info["rec_texts"]) > 0:
+            text += ', '.join(text_info["rec_texts"])
     return text
 
 
@@ -32,11 +44,12 @@ def find_text_pos(ocr_result, target):
     threshold = 0.6
     result = None
     for text_info in ocr_result:
-        if len(text_info) > 0:
-            s = SequenceMatcher(None, target, text_info[0][1][0])
-            if s.ratio() > threshold:
-                result = text_info[0]
-                threshold = s.ratio()
+        if len(text_info["rec_texts"]) > 0:
+            for index, text in enumerate(text_info["rec_texts"]):
+                s = SequenceMatcher(None, target, text)
+                if s.ratio() > threshold:
+                    result = text_info["rec_polys"][index]
+                    threshold = s.ratio()
     return result
 
 
@@ -48,3 +61,4 @@ def find_similar_text(target_text, ref_text_list, threshold=0):
             result = ref_text
             threshold = s.ratio()
     return result
+

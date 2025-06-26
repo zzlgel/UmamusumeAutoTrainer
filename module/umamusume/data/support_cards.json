@@ -1,0 +1,1190 @@
+{
+    "code": 0,
+    "message": "成功",
+    "request_id": "65189f9cf40446868f87108df420b61a",
+    "data": {
+        "support_cards": [
+            {
+                "card_id": 30001,
+                "name": "[献上全国第一的演出]特别周",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/7c337b11e556536be0a2be3819bde453aec8e5b4.png",
+                "attr_id": 3,
+                "rarity": 3
+            },
+            {
+                "card_id": 30002,
+                "name": "[在耀眼景色的前方]无声铃鹿",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/a0b9297d93bb661a29b06cfd922d94dd36566693.png",
+                "attr_id": 1,
+                "rarity": 3
+            },
+            {
+                "card_id": 30003,
+                "name": "[有梦想就要大声说出来！]东海帝王",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/567de0e49a352f185f46ce2c0fb9097bb4a66f92.png",
+                "attr_id": 1,
+                "rarity": 3
+            },
+            {
+                "card_id": 30004,
+                "name": "[不沉舰的进击]黄金船",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/30bc9f15a32158eb09427d831287892a210317b7.png",
+                "attr_id": 5,
+                "rarity": 3
+            },
+            {
+                "card_id": 30005,
+                "name": "[伏特加之路]伏特加",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/43c41e3b230d1cdebdbfefd76512591e6117714f.png",
+                "attr_id": 2,
+                "rarity": 3
+            },
+            {
+                "card_id": 30006,
+                "name": "[万紫千红中一枝独秀]草上飞",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/4005e7655930de210e832b23fa71f444b65f9cfb.png",
+                "attr_id": 3,
+                "rarity": 3
+            },
+            {
+                "card_id": 30007,
+                "name": "[热情的冠军！]神鹰",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/859dbcad3ec788b315f2bd1a110a5d08d611121c.png",
+                "attr_id": 2,
+                "rarity": 3
+            },
+            {
+                "card_id": 30008,
+                "name": "[期待已久的计谋]青云天空",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/6690e469bd7b4017b116f4631eba6b30dfb58798.png",
+                "attr_id": 5,
+                "rarity": 3
+            },
+            {
+                "card_id": 30009,
+                "name": "[划破天空的闪电少女！]玉藻十字",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/7997862505367fc8764f0778b68fd150b6af5804.png",
+                "attr_id": 5,
+                "rarity": 3
+            },
+            {
+                "card_id": 30010,
+                "name": "[全身心的感谢]美妙姿势",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/81e71ea0fa0ee92c261ee5fd17621a92585b89cc.png",
+                "attr_id": 6,
+                "rarity": 3
+            },
+            {
+                "card_id": 30011,
+                "name": "[飞奔吧，闪耀吧]艾尼风神",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/599108753615881ddc00066a8d48eca780d00b15.png",
+                "attr_id": 3,
+                "rarity": 3
+            },
+            {
+                "card_id": 30012,
+                "name": "[B·N·Winner！]胜利奖券",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/8dbe10b265995a726222643244753c29e7c20d9e.png",
+                "attr_id": 3,
+                "rarity": 3
+            },
+            {
+                "card_id": 30013,
+                "name": "[冲向前方7厘米之外]空中神宫",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/0a9379b2808eaa26d8f8073eabfd48595e278abf.png",
+                "attr_id": 6,
+                "rarity": 3
+            },
+            {
+                "card_id": 30014,
+                "name": "[Run（my）way]黄金城",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/3bedb1ef7c5be8e00cd14bbb3aa36cf996cb25aa.png",
+                "attr_id": 1,
+                "rarity": 3
+            },
+            {
+                "card_id": 30015,
+                "name": "[好快！好吃！好快！]樱花进王",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/939578c8147aa043c31264d171feae37deb7432e.png",
+                "attr_id": 1,
+                "rarity": 3
+            },
+            {
+                "card_id": 30016,
+                "name": "[一颗安心糖]超级溪流",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/9ea9456fe5f0f9ca5807c3251ef48b9ab672bfff.png",
+                "attr_id": 5,
+                "rarity": 3
+            },
+            {
+                "card_id": 30017,
+                "name": "[这就是我的优俊偶像之道☆]醒目飞鹰",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/56d1c058d887251631395f37e8274571ba7b6d6c.png",
+                "attr_id": 2,
+                "rarity": 3
+            },
+            {
+                "card_id": 30018,
+                "name": "[哪怕还不能独当一面]西野花",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/819fd3aaf7d676e8c8c4d4053302737dc07a66d0.png",
+                "attr_id": 1,
+                "rarity": 3
+            },
+            {
+                "card_id": 30019,
+                "name": "[乌菈菈～的休息日]春乌菈菈",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/32e2dc746e435a068a6f53c338739dfbb92604f1.png",
+                "attr_id": 3,
+                "rarity": 3
+            },
+            {
+                "card_id": 30020,
+                "name": "[必杀技！双胡萝卜拳！]微光飞驹",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/bf811dca7917633bb1605838129cd418afdbdac2.png",
+                "attr_id": 1,
+                "rarity": 3
+            },
+            {
+                "card_id": 30021,
+                "name": "[欢迎来到特雷森学园！]骏川手纲",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/22062837dcac31ddfb4b11c90d77c3951a030d2a.png",
+                "attr_id": 0,
+                "rarity": 3
+            },
+            {
+                "card_id": 30022,
+                "name": "[身为“王牌”]目白麦昆",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/b0ed0b03894766a5a8fd802a503835e8884ae926.png",
+                "attr_id": 5,
+                "rarity": 3
+            },
+            {
+                "card_id": 30023,
+                "name": "[“幸福”漫天飞舞的时刻]米浴",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/10e5430244ae08017193b9500bccdd597c076d78.png",
+                "attr_id": 5,
+                "rarity": 3
+            },
+            {
+                "card_id": 30024,
+                "name": "[“要受人喜爱啊”]小栗帽",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/7b7c25336a7f5bd841a7dbc259b7d561038f7b3b.png",
+                "attr_id": 2,
+                "rarity": 3
+            },
+            {
+                "card_id": 30025,
+                "name": "[夕阳是憧憬之色]特别周",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/d9b1e9b8f0e88fe5e8707e27f00bd282543952a7.png",
+                "attr_id": 1,
+                "rarity": 3
+            },
+            {
+                "card_id": 30026,
+                "name": "[涡轮引擎马力全开！]双涡轮",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/04afa95d2fa6ac486ec4f2ccf78ea1393e5b1a53.png",
+                "attr_id": 1,
+                "rarity": 3
+            },
+            {
+                "card_id": 30027,
+                "name": "[尽管笑我傻吧]目白善信",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/eb9d60e5fb57dc133c6cf2a0e1928f6705726603.png",
+                "attr_id": 3,
+                "rarity": 3
+            },
+            {
+                "card_id": 30028,
+                "name": "[身后迫近的热浪是动力]北部玄驹",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/8f9b29c0a38a806f9e19ab3d0735f11781c2046b.png",
+                "attr_id": 1,
+                "rarity": 3
+            },
+            {
+                "card_id": 30029,
+                "name": "[超越那前方的背影]里见光钻",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/9b37ca47af3b7150135d793f0cb86835899b95a5.png",
+                "attr_id": 5,
+                "rarity": 3
+            },
+            {
+                "card_id": 30030,
+                "name": "[Just keep going.]待兼唐怀瑟",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/06c72842f01018a87213cb0a83da1e2c55c27340.png",
+                "attr_id": 3,
+                "rarity": 3
+            },
+            {
+                "card_id": 30031,
+                "name": "[由故乡直达的助威！]雪之美人",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/ae4af7eaec22cbd59c59799c61f4105aca56106d.png",
+                "attr_id": 6,
+                "rarity": 3
+            },
+            {
+                "card_id": 30032,
+                "name": "[心中的烈火无法抑制]八重无敌",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/6a5f51a2692edfcfd6e1a82634fe855af4c8da3d.png",
+                "attr_id": 2,
+                "rarity": 3
+            },
+            {
+                "card_id": 30033,
+                "name": "[梦想真的可以实现！]胜利奖券",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/bd63595f79cd979b766f936f56b555a75f8d3fa3.png",
+                "attr_id": 2,
+                "rarity": 3
+            },
+            {
+                "card_id": 30034,
+                "name": "[幸福就在转角后]米浴",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/971fabc2e2bd020b98bc183c0c52a2a5f5ed2e40.png",
+                "attr_id": 2,
+                "rarity": 3
+            },
+            {
+                "card_id": 30036,
+                "name": "[彻底管理主义]㭴本理子",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/43783bdaf47e5948760dcadd578d9e4d9d9cd5a6.png",
+                "attr_id": 0,
+                "rarity": 3
+            },
+            {
+                "card_id": 30038,
+                "name": "[樱花盛开之时]樱花千代王",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/05c1659420635a73ea60718f0d709c2f25fefd1f.png",
+                "attr_id": 5,
+                "rarity": 3
+            },
+            {
+                "card_id": 30039,
+                "name": "[身为新娘！]川上公主",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/f56aa03b480c77afcfeca873d9b1a41a4f1e923b.png",
+                "attr_id": 1,
+                "rarity": 3
+            },
+            {
+                "card_id": 30040,
+                "name": "[请品尝第一口！]菱曙",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/d2b5e05b81fb511fb2ce1786b068d56454682985.png",
+                "attr_id": 3,
+                "rarity": 3
+            },
+            {
+                "card_id": 30041,
+                "name": "[心与心愿]目白多伯",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/49474d31c4d1db0e2d2ce1276875aaf2e269f99f.png",
+                "attr_id": 6,
+                "rarity": 3
+            },
+            {
+                "card_id": 30042,
+                "name": "[Head-on fight！]青竹回忆",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/3229c9a843030ee9dcd0027a65f978266dac5e22.png",
+                "attr_id": 2,
+                "rarity": 3
+            },
+            {
+                "card_id": 30043,
+                "name": "[43、8、1]中山庆典",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/dafa4579e1d77cb2e4e8330f655f76c778e76d94.png",
+                "attr_id": 5,
+                "rarity": 3
+            },
+            {
+                "card_id": 30044,
+                "name": "[Two Pieces]成田白仁",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/664a6c5e6f2a1bdbcf3fc964b91eeb5ebbddc108.png",
+                "attr_id": 1,
+                "rarity": 3
+            },
+            {
+                "card_id": 30045,
+                "name": "[独享冰凉？]东商变革",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/0c81baf7af64d5a7a8a877b997cbb7977c22c963.png",
+                "attr_id": 1,
+                "rarity": 3
+            },
+            {
+                "card_id": 30046,
+                "name": "[全力嬉闹！]胜利奖券",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/1214b178c244ed31fd619e27c40c0072e4b165fe.png",
+                "attr_id": 5,
+                "rarity": 3
+            },
+            {
+                "card_id": 30047,
+                "name": "[Trifle☆Vacation]大和赤骥",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/0fdd84a393edfd9b02f250bc08723e8eac2394bd.png",
+                "attr_id": 2,
+                "rarity": 3
+            },
+            {
+                "card_id": 30048,
+                "name": "[爽快！决胜一击！]目白莱恩",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/b5c195cd5116e7beec67be11d3a4654d8634f528.png",
+                "attr_id": 3,
+                "rarity": 3
+            },
+            {
+                "card_id": 30054,
+                "name": "[即使满身泥土，也要追逐梦想]优秀素质",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/55645691a9802153b1d527931bad90d4114ca2e7.png",
+                "attr_id": 6,
+                "rarity": 3
+            },
+            {
+                "card_id": 30055,
+                "name": "[明天全国都会染红吧♪]青云天空",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/686a403ad22cc30d541f13917a959d5ebe31c419.png",
+                "attr_id": 6,
+                "rarity": 3
+            },
+            {
+                "card_id": 30056,
+                "name": "[起舞今宵]帝王光辉",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/c21b52bdc3a4a8b9cad9299e1aa5e7dd3cf69db3.png",
+                "attr_id": 2,
+                "rarity": 3
+            },
+            {
+                "card_id": 30057,
+                "name": "[优俊王传说·登上最强宝座]黄金船",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/dc72f480906e484f1f549c267547232ae8dc86a2.png",
+                "attr_id": 1,
+                "rarity": 3
+            },
+            {
+                "card_id": 30062,
+                "name": "[WINNING DREAM]无声铃鹿",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/cb236a679900e2014065300d79f15ebf0d75b45e.png",
+                "attr_id": 5,
+                "rarity": 3
+            },
+            {
+                "card_id": 30063,
+                "name": "[内心双脚皆温暖]生野狄杜斯",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/80e0b26de46f1040dd05def77b8cd4dfbd41b42a.png",
+                "attr_id": 3,
+                "rarity": 3
+            },
+            {
+                "card_id": 30064,
+                "name": "[大闹万圣夜！]玉藻十字",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/97e49d1ede58805a089f19e290c2ead6bce34461.png",
+                "attr_id": 2,
+                "rarity": 3
+            },
+            {
+                "card_id": 30065,
+                "name": "[被授予魔力的英雄]荒漠英雄",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/304095ede6df9e7fa1309cc56c4e66e29141b74f.png",
+                "attr_id": 1,
+                "rarity": 3
+            },
+            {
+                "card_id": 30066,
+                "name": "[幽灵小姐与万圣节的魔法]美浦波旁",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/9f62dfe2503adc41f9458a32bc176e253cbfd438.png",
+                "attr_id": 6,
+                "rarity": 3
+            },
+            {
+                "card_id": 30068,
+                "name": "[可爱的你，美丽的你]真机伶",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/44ec41d969c88fe5885c632eb0ed1b05a0a961e4.png",
+                "attr_id": 6,
+                "rarity": 3
+            },
+            {
+                "card_id": 30069,
+                "name": "[鸣箭嗤天]成田白仁",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/0e6846f2feba23a0e0a78c9acc935d5fd35a80a8.png",
+                "attr_id": 5,
+                "rarity": 3
+            },
+            {
+                "card_id": 30070,
+                "name": "[点亮初宵的奉纳舞]雪之美人",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/0fd5a19d41fa25b476a1191c471ca788883831f8.png",
+                "attr_id": 3,
+                "rarity": 3
+            },
+            {
+                "card_id": 20001,
+                "name": "[哎呀呀，欢迎回来]富士奇石",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/2f9a7e693be8d8413b6cd0b0ea1921c0b012aeae.png",
+                "attr_id": 6,
+                "rarity": 2
+            },
+            {
+                "card_id": 20002,
+                "name": "[努力不会背叛自己！]大和赤骥",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/91e129fcbf488ad530d14f6c11aeb02c30d874cd.png",
+                "attr_id": 6,
+                "rarity": 2
+            },
+            {
+                "card_id": 20003,
+                "name": "[立于顶峰！]菱亚马逊",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/c38915d4db1c71466c80fc0efb9f75d173d1f385.png",
+                "attr_id": 2,
+                "rarity": 2
+            },
+            {
+                "card_id": 20004,
+                "name": "[运筹帷幄副会长]气槽",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/19fecd8635d5b6a989e4cc3dfb1de992ce4171a1.png",
+                "attr_id": 3,
+                "rarity": 2
+            },
+            {
+                "card_id": 20005,
+                "name": "[数码充电中+]爱丽数码",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/6aa08589f245c1a7e1dd103a84b26305c3998b8a.png",
+                "attr_id": 2,
+                "rarity": 2
+            },
+            {
+                "card_id": 20006,
+                "name": "[验证，开始]琵琶晨光",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/a2ffdaf0c836426180ef163fdb3ac5a3892bb6f5.png",
+                "attr_id": 2,
+                "rarity": 2
+            },
+            {
+                "card_id": 20007,
+                "name": "[可爱＋可爱等于？]重炮",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/e2b755917b3b14bf012397e6e394732cd1e3c47c.png",
+                "attr_id": 5,
+                "rarity": 2
+            },
+            {
+                "card_id": 20008,
+                "name": "[雨中独奏，我的独创]曼城茶座",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/c5f6fc20225f906c41eb3d577c31c87370d94f93.png",
+                "attr_id": 5,
+                "rarity": 2
+            },
+            {
+                "card_id": 20009,
+                "name": "[充分锻炼的下肢]美浦波旁",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/622686422d05a0e1d1e0d811e48c2054b6131c48.png",
+                "attr_id": 2,
+                "rarity": 2
+            },
+            {
+                "card_id": 20010,
+                "name": "[努力训练，积极回应！]目白莱恩",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/ea3c7c2f61140a1811ebe59e2dcc4c0e5e426cf5.png",
+                "attr_id": 2,
+                "rarity": 2
+            },
+            {
+                "card_id": 20011,
+                "name": "[城市少女入门♯]雪之美人",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/4fc21789ddf1a0ea85246ee0b954bf819d0e0839.png",
+                "attr_id": 3,
+                "rarity": 2
+            },
+            {
+                "card_id": 20012,
+                "name": "[有关生物体A的实验研究]爱丽速子",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/27b72f580365d74a1ff42ba323895f20c6fa3a13.png",
+                "attr_id": 6,
+                "rarity": 2
+            },
+            {
+                "card_id": 20013,
+                "name": "[0500，准时准点]荣进闪耀",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/baa3c84c273a5de998a5f239dec84c65c6bf4354.png",
+                "attr_id": 1,
+                "rarity": 2
+            },
+            {
+                "card_id": 20014,
+                "name": "[心情起伏]成田大进",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/5566e9d4b4b037f6023a92e85f54b5fb1a371018.png",
+                "attr_id": 1,
+                "rarity": 2
+            },
+            {
+                "card_id": 20015,
+                "name": "[Marvelous☆大作战]美丽周日",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/bbf8ee06e09188836b326afcac93ff2ed535b24e.png",
+                "attr_id": 6,
+                "rarity": 2
+            },
+            {
+                "card_id": 20016,
+                "name": "[运气的走向]待兼福来",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/ae60ad45359e30c83ffba49247c8bd92ff4e9473.png",
+                "attr_id": 6,
+                "rarity": 2
+            },
+            {
+                "card_id": 20017,
+                "name": "[与幸福背靠背]名将怒涛",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/2d885bac661874a11e3ed9d0e7751d4dbe3c35f9.png",
+                "attr_id": 3,
+                "rarity": 2
+            },
+            {
+                "card_id": 20018,
+                "name": "[不要在意视线]目白多伯",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/a83f1060f5c6001edbb1c36b3128c64e73f9d3bd.png",
+                "attr_id": 6,
+                "rarity": 2
+            },
+            {
+                "card_id": 20019,
+                "name": "[这只是水滴啦……]优秀素质",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/e6bd88da4a011503dd95e273c603a0c54f52dee8.png",
+                "attr_id": 3,
+                "rarity": 2
+            },
+            {
+                "card_id": 20020,
+                "name": "[一流计划]帝王光辉",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/d052b93e5b312476bedd2529475593050cc88005.png",
+                "attr_id": 1,
+                "rarity": 2
+            },
+            {
+                "card_id": 20021,
+                "name": "[并肩同行！]桐生院葵",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/e3cee25ba6e950542f337e08e5fae3892c7eeef1.png",
+                "attr_id": 0,
+                "rarity": 2
+            },
+            {
+                "card_id": 20023,
+                "name": "[见习魔女与漫漫长夜]东商变革",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/83885601d399d236a3aaace1445085d21e82efae.png",
+                "attr_id": 1,
+                "rarity": 2
+            },
+            {
+                "card_id": 20024,
+                "name": "[派对人派对夜！]大拓太阳神",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/bcf43fb03913b1f34e06889d36e62274572589e0.png",
+                "attr_id": 2,
+                "rarity": 2
+            },
+            {
+                "card_id": 20025,
+                "name": "[热身运动决不可懈怠]生野狄杜斯",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/8f8b8c2b3baaac9f7dff3ff43ee4bf5954968a1a.png",
+                "attr_id": 6,
+                "rarity": 2
+            },
+            {
+                "card_id": 20026,
+                "name": "[天真无邪]优秀素质",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/daa1c7349781a515ce8d0b46d42babeda7e3289e.png",
+                "attr_id": 6,
+                "rarity": 2
+            },
+            {
+                "card_id": 20027,
+                "name": "[这是送给你的]西野花",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/8e2b0417d6adda1533f5db32031bb86bfbf7c274.png",
+                "attr_id": 2,
+                "rarity": 2
+            },
+            {
+                "card_id": 20028,
+                "name": "[推荐你读这本书！]荒漠英雄",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/a4fcf68b9fe43c2a8a3d992ae82df78be3cc458c.png",
+                "attr_id": 5,
+                "rarity": 2
+            },
+            {
+                "card_id": 20029,
+                "name": "[世界的珍珠，其名为]采珠",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/8b403635e6fe288a6787bdab270de16511b6c87b.png",
+                "attr_id": 3,
+                "rarity": 2
+            },
+            {
+                "card_id": 20031,
+                "name": "[///WARNING GATE///]新光风",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/2e76bdc785f06c84a6a9ff61c60e4d7e774ea905.png",
+                "attr_id": 1,
+                "rarity": 2
+            },
+            {
+                "card_id": 20034,
+                "name": "[强风拂心]目白雅丹",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/65e7f30c864c886272ae7ac341a23c44c1a82244.png",
+                "attr_id": 6,
+                "rarity": 2
+            },
+            {
+                "card_id": 20035,
+                "name": "[nail on Turf]岛川乔丹",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/17abfde99aabd231c2e9162d29494722ef65bf9d.png",
+                "attr_id": 5,
+                "rarity": 2
+            },
+            {
+                "card_id": 20037,
+                "name": "[GRMA拉面♪]美妙姿势",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/86bb1198b68f828f8804d1c3808ad1ad71adc396.png",
+                "attr_id": 2,
+                "rarity": 2
+            },
+            {
+                "card_id": 20038,
+                "name": "[毫不动摇的一等星]天狼星象征",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/89ccbc5beef1540870edb440fba71370168876b3.png",
+                "attr_id": 3,
+                "rarity": 2
+            },
+            {
+                "card_id": 10001,
+                "name": "[特雷森学园]特别周",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/401ec23110c69c427daaadae023f532afb209922.png",
+                "attr_id": 3,
+                "rarity": 1
+            },
+            {
+                "card_id": 10002,
+                "name": "[特雷森学园]无声铃鹿",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/c8afc271bd04d554711c5f63c52c564960f376ef.png",
+                "attr_id": 1,
+                "rarity": 1
+            },
+            {
+                "card_id": 10003,
+                "name": "[特雷森学园]东海帝王",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/bd041d487ed073a6d351753eb0938f75662087d5.png",
+                "attr_id": 1,
+                "rarity": 1
+            },
+            {
+                "card_id": 10004,
+                "name": "[特雷森学园]丸善斯基",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/a34d7b9bb36b68b637da9c214698168ec557df07.png",
+                "attr_id": 1,
+                "rarity": 1
+            },
+            {
+                "card_id": 10005,
+                "name": "[特雷森学园]小栗帽",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/a87faeaa9eb5ff2424727f57316205d3bbf52454.png",
+                "attr_id": 2,
+                "rarity": 1
+            },
+            {
+                "card_id": 10006,
+                "name": "[特雷森学园]黄金船",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/53f1af4649d3521048ff98b1e4f6b5d335c459f1.png",
+                "attr_id": 5,
+                "rarity": 1
+            },
+            {
+                "card_id": 10007,
+                "name": "[特雷森学园]伏特加",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/14c1a2a221eadc07833cbe4bbd298c29940e63d5.png",
+                "attr_id": 2,
+                "rarity": 1
+            },
+            {
+                "card_id": 10008,
+                "name": "[特雷森学园]大树快车",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/156ac53e08ff4342db92a29aefd890a7f8881148.png",
+                "attr_id": 1,
+                "rarity": 1
+            },
+            {
+                "card_id": 10009,
+                "name": "[特雷森学园]草上飞",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/d6e1c6598ef9e2475bcb505af760ec20883bd9d3.png",
+                "attr_id": 3,
+                "rarity": 1
+            },
+            {
+                "card_id": 10010,
+                "name": "[特雷森学园]目白麦昆",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/759274190b7d47f6993b6ef619c867f4664db037.png",
+                "attr_id": 5,
+                "rarity": 1
+            },
+            {
+                "card_id": 10011,
+                "name": "[特雷森学园]神鹰",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/717f1fe7866b31fc0d84c940c384c98333a035ef.png",
+                "attr_id": 2,
+                "rarity": 1
+            },
+            {
+                "card_id": 10012,
+                "name": "[特雷森学园]好歌剧",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/5ec3ca7a3d2dd96e672cbe1342ff8d230aa2592d.png",
+                "attr_id": 5,
+                "rarity": 1
+            },
+            {
+                "card_id": 10013,
+                "name": "[特雷森学园]鲁道夫象征",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/63cee8a009a913f09708eea22cc139ee42766777.png",
+                "attr_id": 6,
+                "rarity": 1
+            },
+            {
+                "card_id": 10014,
+                "name": "[特雷森学园]青云天空",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/5f6a468a55ccb77b9651fc97a72ab8596db67ef0.png",
+                "attr_id": 5,
+                "rarity": 1
+            },
+            {
+                "card_id": 10015,
+                "name": "[特雷森学园]米浴",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/97c66d26c532824f2a4785de40c13df776935a44.png",
+                "attr_id": 5,
+                "rarity": 1
+            },
+            {
+                "card_id": 10016,
+                "name": "[特雷森学园]胜利奖券",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/0624b4a33bfa55d7135e08243c92be1547fd2cd2.png",
+                "attr_id": 3,
+                "rarity": 1
+            },
+            {
+                "card_id": 10017,
+                "name": "[特雷森学园]黄金城",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/e7d798ea85d0793503099d5fcec4585a0f492e0d.png",
+                "attr_id": 1,
+                "rarity": 1
+            },
+            {
+                "card_id": 10018,
+                "name": "[特雷森学园]樱花进王",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/0e04dd5d8063bae6e567b9fbb16adf3cb08b84d7.png",
+                "attr_id": 1,
+                "rarity": 1
+            },
+            {
+                "card_id": 10019,
+                "name": "[特雷森学园]超级溪流",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/43802a4d9dbeaa9d0268bd709e016dbe4e40629c.png",
+                "attr_id": 5,
+                "rarity": 1
+            },
+            {
+                "card_id": 10020,
+                "name": "[特雷森学园]春乌菈菈",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/d0fe1d0a38caa548d637ad9aac700c6b60490f30.png",
+                "attr_id": 3,
+                "rarity": 1
+            },
+            {
+                "card_id": 10021,
+                "name": "[特雷森学园]骏川手纲",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/9020b4ee219af82a20635c6030c836ada11c0d1e.png",
+                "attr_id": 0,
+                "rarity": 1
+            },
+            {
+                "card_id": 10022,
+                "name": "[特雷森学园]桐生院葵",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/915e3275ba487917758d0808800f9b5c0c7c2344.png",
+                "attr_id": 0,
+                "rarity": 1
+            },
+            {
+                "card_id": 10023,
+                "name": "[特雷森学园]大和赤骥",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/dcd9b3179c8854fc8c29f3ab843e41e066006795.png",
+                "attr_id": 6,
+                "rarity": 1
+            },
+            {
+                "card_id": 10024,
+                "name": "[特雷森学园]菱亚马逊",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/e5233d5321fcd634740b3918e6bf2c699fb117ad.png",
+                "attr_id": 2,
+                "rarity": 1
+            },
+            {
+                "card_id": 10025,
+                "name": "[特雷森学园]气槽",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/dd4379162988ad4c8b466aa025f7a8f2cff3ccb4.png",
+                "attr_id": 3,
+                "rarity": 1
+            },
+            {
+                "card_id": 10026,
+                "name": "[特雷森学园]爱丽数码",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/cf9b670cc732ffc1c9c4bcd25b5a597d71e6fedb.png",
+                "attr_id": 2,
+                "rarity": 1
+            },
+            {
+                "card_id": 10027,
+                "name": "[特雷森学园]玉藻十字",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/40354828659c761edcbf2ef60efd72252d4f4690.png",
+                "attr_id": 5,
+                "rarity": 1
+            },
+            {
+                "card_id": 10028,
+                "name": "[特雷森学园]美妙姿势",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/ddcd12684edb4aeedd3c5c778c2f209ca2a672ee.png",
+                "attr_id": 6,
+                "rarity": 1
+            },
+            {
+                "card_id": 10029,
+                "name": "[特雷森学园]琵琶晨光",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/a7150b6c397fe9d94cfa8b932983211fa877b645.png",
+                "attr_id": 2,
+                "rarity": 1
+            },
+            {
+                "card_id": 10030,
+                "name": "[特雷森学园]重炮",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/93157df637fbc5942154ae1c8aab741ad4b114cb.png",
+                "attr_id": 5,
+                "rarity": 1
+            },
+            {
+                "card_id": 10031,
+                "name": "[特雷森学园]曼城茶座",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/211700c75885a6ac78b62bd9db7fbe058ef01b40.png",
+                "attr_id": 5,
+                "rarity": 1
+            },
+            {
+                "card_id": 10032,
+                "name": "[特雷森学园]美浦波旁",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/badcb9e45c099ef277b54da4027de33c2069e5cc.png",
+                "attr_id": 2,
+                "rarity": 1
+            },
+            {
+                "card_id": 10033,
+                "name": "[特雷森学园]目白莱恩",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/3f9eacf5f78039a2b24aa466f67f7fab7a429f75.png",
+                "attr_id": 2,
+                "rarity": 1
+            },
+            {
+                "card_id": 10034,
+                "name": "[特雷森学园]雪之美人",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/6161441148252c94e35167c14af5943e30213a4c.png",
+                "attr_id": 3,
+                "rarity": 1
+            },
+            {
+                "card_id": 10035,
+                "name": "[特雷森学园]艾尼风神",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/59e0482b2835d2baf6beb8cb2f90a0b062fb057d.png",
+                "attr_id": 3,
+                "rarity": 1
+            },
+            {
+                "card_id": 10036,
+                "name": "[特雷森学园]爱丽速子",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/6bd46c9a3f150d960f76493c9b4aa3d75bffa41d.png",
+                "attr_id": 6,
+                "rarity": 1
+            },
+            {
+                "card_id": 10037,
+                "name": "[特雷森学园]空中神宫",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/379e48dc7ed1f698467157e797d15b8329df4178.png",
+                "attr_id": 6,
+                "rarity": 1
+            },
+            {
+                "card_id": 10038,
+                "name": "[特雷森学园]荣进闪耀",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/aec18a020f1cdedca6433b9f8d675ee43cf02d45.png",
+                "attr_id": 1,
+                "rarity": 1
+            },
+            {
+                "card_id": 10039,
+                "name": "[特雷森学园]醒目飞鹰",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/782faf52f6f5fc600446d7d8b49593af2d7374a9.png",
+                "attr_id": 2,
+                "rarity": 1
+            },
+            {
+                "card_id": 10040,
+                "name": "[特雷森学园]成田大进",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/9c4239fcade0feb0c4cecdb24402e001f6b2b6de.png",
+                "attr_id": 1,
+                "rarity": 1
+            },
+            {
+                "card_id": 10041,
+                "name": "[特雷森学园]西野花",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/baad1874ed2891478baa52a08c1599fa0c97a43b.png",
+                "attr_id": 1,
+                "rarity": 1
+            },
+            {
+                "card_id": 10042,
+                "name": "[特雷森学园]微光飞驹",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/f1d2ab26f8977a4c86843ec064e90422ffd2d057.png",
+                "attr_id": 1,
+                "rarity": 1
+            },
+            {
+                "card_id": 10043,
+                "name": "[特雷森学园]美丽周日",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/44e4361348ae54530cad83a62e3f7b2d65ce05ff.png",
+                "attr_id": 6,
+                "rarity": 1
+            },
+            {
+                "card_id": 10044,
+                "name": "[特雷森学园]待兼福来",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/ccec758d174aca6be440b275feed98cc13e945e3.png",
+                "attr_id": 6,
+                "rarity": 1
+            },
+            {
+                "card_id": 10045,
+                "name": "[特雷森学园]名将怒涛",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/0573bd802e929afba7bee731b8799c8170a801dd.png",
+                "attr_id": 3,
+                "rarity": 1
+            },
+            {
+                "card_id": 10046,
+                "name": "[特雷森学园]目白多伯",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/cdf4fbb54d4dbdd5bfc4922eaadb93879aec2d52.png",
+                "attr_id": 6,
+                "rarity": 1
+            },
+            {
+                "card_id": 10047,
+                "name": "[特雷森学园]优秀素质",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/36444f07a56f57e38bb1df20dd6e3467ae8d6715.png",
+                "attr_id": 3,
+                "rarity": 1
+            },
+            {
+                "card_id": 10048,
+                "name": "[特雷森学园]帝王光辉",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/63eda4fbebdaa9de1bdd4c93c9e9028772bfb773.png",
+                "attr_id": 1,
+                "rarity": 1
+            },
+            {
+                "card_id": 10049,
+                "name": "[特雷森学园]富士奇石",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/851e64a597e57ca242fdcafa1328cdb00097e707.png",
+                "attr_id": 6,
+                "rarity": 1
+            },
+            {
+                "card_id": 10050,
+                "name": "[特雷森学园]东商变革",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/39f95618780aa08273c421ad29f6ed88e1e06950.png",
+                "attr_id": 1,
+                "rarity": 1
+            },
+            {
+                "card_id": 10051,
+                "name": "[特雷森学园]双涡轮",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/2b049ab49f0d7dd2100f956bd0ccdf9cae66d01b.png",
+                "attr_id": 1,
+                "rarity": 1
+            },
+            {
+                "card_id": 10052,
+                "name": "[特雷森学园]大拓太阳神",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/6270a3a3e543c773d8a1e225a4cfbae2caca150a.png",
+                "attr_id": 2,
+                "rarity": 1
+            },
+            {
+                "card_id": 10053,
+                "name": "[特雷森学园]生野狄杜斯",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/d56f8a5d0a2a2c9402b7d7505e57d6e3de999e31.png",
+                "attr_id": 6,
+                "rarity": 1
+            },
+            {
+                "card_id": 10054,
+                "name": "[特雷森学园]目白善信",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/c03570d2c0cf50f180cc0444647a019870e493ab.png",
+                "attr_id": 3,
+                "rarity": 1
+            },
+            {
+                "card_id": 10055,
+                "name": "[特雷森学园]北部玄驹",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/6e641e9c343463f9085a14fd6605701a332b2791.png",
+                "attr_id": 1,
+                "rarity": 1
+            },
+            {
+                "card_id": 10056,
+                "name": "[特雷森学园]里见光钻",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/c3a49c0d448ae9697b422aad020c580ae87b5535.png",
+                "attr_id": 5,
+                "rarity": 1
+            },
+            {
+                "card_id": 10057,
+                "name": "[特雷森学园]待兼唐怀瑟",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/5f0554e932819ceb991adebed26923b533c4002c.png",
+                "attr_id": 3,
+                "rarity": 1
+            },
+            {
+                "card_id": 10058,
+                "name": "[特雷森学园]八重无敌",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/bf0142ff564bc2bc0416cbeddc0ba20beb879eda.png",
+                "attr_id": 2,
+                "rarity": 1
+            },
+            {
+                "card_id": 10059,
+                "name": "[特雷森学园]荒漠英雄",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/ed0690134eb725c2e962ac049ed549bd13058b1b.png",
+                "attr_id": 5,
+                "rarity": 1
+            },
+            {
+                "card_id": 10060,
+                "name": "[特雷森学园]㭴本理子",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/a55b7239079a326f0edf2c5d681f11319c59dcf8.png",
+                "attr_id": 0,
+                "rarity": 1
+            },
+            {
+                "card_id": 10061,
+                "name": "[特雷森学园]采珠",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/e83b034b3246adf872490bc1972d9cdac47f18b7.png",
+                "attr_id": 3,
+                "rarity": 1
+            },
+            {
+                "card_id": 10062,
+                "name": "[特雷森学园]樱花千代王",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/bd64877ee7f17876b6a55820b6889b54e05e0701.png",
+                "attr_id": 5,
+                "rarity": 1
+            },
+            {
+                "card_id": 10063,
+                "name": "[特雷森学园]川上公主",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/48076f8ddf1517e80b4a05b6ce9d7cb1e280f1f2.png",
+                "attr_id": 1,
+                "rarity": 1
+            },
+            {
+                "card_id": 10064,
+                "name": "[特雷森学园]菱曙",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/5aeda21382a52ba63568c3a9b2de8835dcaddd26.png",
+                "attr_id": 3,
+                "rarity": 1
+            },
+            {
+                "card_id": 10065,
+                "name": "[特雷森学园]青竹回忆",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/991968c6454e75df6c982fe12a9eb2d12942c708.png",
+                "attr_id": 2,
+                "rarity": 1
+            },
+            {
+                "card_id": 10066,
+                "name": "[特雷森学园]新光风",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/607ce49a9a720560a1bcd60dba3ee75a46cb1038.png",
+                "attr_id": 1,
+                "rarity": 1
+            },
+            {
+                "card_id": 10067,
+                "name": "[特雷森学园]中山庆典",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/728b4343da50081e209a45b1c74a17c74a3b85ce.png",
+                "attr_id": 5,
+                "rarity": 1
+            },
+            {
+                "card_id": 10069,
+                "name": "[特雷森学园]目白雅丹",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/168879cd1f10f9e6a1b7e3653ed29820d1f1f392.png",
+                "attr_id": 6,
+                "rarity": 1
+            },
+            {
+                "card_id": 10070,
+                "name": "[特雷森学园]岛川乔丹",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/a61a4d34d6d7e1369af4db41191296be248e3838.png",
+                "attr_id": 5,
+                "rarity": 1
+            },
+            {
+                "card_id": 10071,
+                "name": "[特雷森学园]天狼星象征",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/cd12173c8df130e137b3d97ba6c1862c04c406d6.png",
+                "attr_id": 3,
+                "rarity": 1
+            },
+            {
+                "card_id": 10072,
+                "name": "[特雷森学园]成田白仁",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/116004f475d66a1b9e282f5afe64283ab96ff2a8.png",
+                "attr_id": 1,
+                "rarity": 1
+            },
+            {
+                "card_id": 10073,
+                "name": "[特雷森学园]真机伶",
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/a73a5fb33e02f753f5a18c2ab04bc2055847b73c.png",
+                "attr_id": 6,
+                "rarity": 1
+            }
+        ],
+        "attr_urls": [
+            {
+                "attr_id": 0,
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/b4e3ea5a5fa27ac66e779a9f2cc7c0cdb6e88309.png"
+            },
+            {
+                "attr_id": 1,
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/b2e3ac20d9fda0bf59b932d4433430b99c57a8a3.png"
+            },
+            {
+                "attr_id": 2,
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/f8743fc1d59e484c98bbc62a555daa2602363668.png"
+            },
+            {
+                "attr_id": 3,
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/ae575ad44be380d2d579286b7eb58d6b3859827f.png"
+            },
+            {
+                "attr_id": 5,
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/2ff11555e816a7fc046a5b71cc0aabc7156319d0.png"
+            },
+            {
+                "attr_id": 6,
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/e963fe514cfd20b2eaf9cf5d07e5538aaf0b871e.png"
+            }
+        ],
+        "rarity_urls": [
+            {
+                "rarity": 1,
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/1bd8035f6d63e28de22f1981b48e377520baf0b1.png"
+            },
+            {
+                "rarity": 2,
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/89eeece3573c4c6facc2b70016239422c2fb1014.png"
+            },
+            {
+                "rarity": 3,
+                "icon_url": "https://i0.hdslb.com/bfs/game/player/tools/uma/a4650875be69a82e1b84f7446c00e0ccbab4ec93.png"
+            }
+        ]
+    }
+}
