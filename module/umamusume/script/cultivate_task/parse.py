@@ -7,6 +7,7 @@ import numpy
 from bot.recog.image_matcher import image_match, compare_color_equal
 from bot.recog.ocr import ocr_line, find_similar_text
 from module.umamusume.asset.race_data import RACE_LIST
+from module.umamusume.asset.scenario import SCENARIO_LIST
 from module.umamusume.context import UmamusumeContext, SupportCardInfo
 from module.umamusume.asset import *
 from module.umamusume.define import *
@@ -389,6 +390,17 @@ def find_race(ctx: UmamusumeContext, img, race_id: int = 0) -> bool:
     return False
 
 
+def find_scenario(ctx: UmamusumeContext, img, scenario_id: int = 0) -> bool:
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    target_race_template = SCENARIO_LIST[scenario_id][2]
+    if target_race_template is not None:
+        if image_match(img, target_race_template).find_match:
+            return True
+    ctx.ctrl.click(700, 585,
+                   "寻找剧本：" + str(SCENARIO_LIST[scenario_id][1]))
+    return False
+
+
 def find_skill(ctx: UmamusumeContext, img, skill: list[str], learn_any_skill: bool) -> bool:
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     find = False
@@ -427,7 +439,7 @@ def find_skill(ctx: UmamusumeContext, img, skill: list[str], learn_any_skill: bo
     return find
 
 
-def get_skill_list(img, skill: list[str], skill_blacklist: list[str]) -> list:
+def get_skill_list(img, skill: list[list[str]], skill_blacklist: list[str]) -> list:
     origin_img = img
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     res = []
