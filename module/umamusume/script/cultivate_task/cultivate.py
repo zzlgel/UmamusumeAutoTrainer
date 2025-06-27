@@ -405,12 +405,7 @@ def script_cultivate_finish(ctx: UmamusumeContext):
         ctx.cultivate_detail.cultivate_finish = True
         ctx.ctrl.click_by_point(CULTIVATE_FINISH_LEARN_SKILL)
     else:
-        if ctx.task.detail.config_stop_at_factor_select:
-            log.info("Stopping before factor selection")
-            ctx.task.end_task(TaskStatus.TASK_STATUS_SUCCESS, EndTaskReason.COMPLETE)
-        else:
-            log.info("Auto accepting factor")
-            ctx.ctrl.click_by_point(CULTIVATE_FINISH_CONFIRM)
+        ctx.ctrl.click_by_point(CULTIVATE_FINISH_CONFIRM)
 
 
 def script_cultivate_learn_skill(ctx: UmamusumeContext):
