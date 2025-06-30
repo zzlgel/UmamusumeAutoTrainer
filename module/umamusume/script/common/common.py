@@ -1,7 +1,7 @@
 import time
 from module.umamusume.task import UmamusumeTaskType
 from module.umamusume.context import UmamusumeContext
-
+from module.umamusume.asset.point import CLICK_FOR_NOT_FOUND_UI
 
 def on_task(ctx: UmamusumeContext, task_type: UmamusumeTaskType):
     return ctx.task.task_type == task_type
@@ -17,7 +17,7 @@ def get_timestamp(ctx: UmamusumeContext, name: str):
 
 
 def script_common_not_found_ui(ctx: UmamusumeContext):
-    ctx.ctrl.click(719, 1, "")
+    ctx.ctrl.click_by_point(CLICK_FOR_NOT_FOUND_UI)
     time.sleep(0.2)
     ts = get_timestamp(ctx, 'not_found_ui')
     if not ts or time.time() - ts > 3:

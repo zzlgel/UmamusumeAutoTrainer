@@ -168,7 +168,7 @@ def script_main_menu(ctx: UmamusumeContext):
 
 def script_scenario_select(ctx: UmamusumeContext):
     if ctx.cultivate_detail.no_tp or ctx.cultivate_detail.borrowed:
-        ctx.ctrl.click(360, 1220, "返回主界面")
+        ctx.ctrl.click_by_point(GO_HOME)
         return
     for _ in range(20):
         img = ctx.ctrl.get_screen()
@@ -177,19 +177,19 @@ def script_scenario_select(ctx: UmamusumeContext):
             return
     else:
         # 未找到目标剧本
-        ctx.ctrl.click(360, 1220, "返回主界面")
+        ctx.ctrl.click_by_point(GO_HOME)
 
 
 def script_umamusume_select(ctx: UmamusumeContext):
     if ctx.cultivate_detail.no_tp or ctx.cultivate_detail.borrowed:
-        ctx.ctrl.click(360, 1220, "返回主界面")
+        ctx.ctrl.click_by_point(GO_HOME)
         return
     ctx.ctrl.click_by_point(TO_CULTIVATE_PREPARE_NEXT)
 
 
 def script_extend_umamusume_select(ctx: UmamusumeContext):
     if ctx.cultivate_detail.no_tp or ctx.cultivate_detail.borrowed:
-        ctx.ctrl.click(360, 1220, "返回主界面")
+        ctx.ctrl.click_by_point(GO_HOME)
         return
     img = ctx.ctrl.get_screen(to_gray=True)[700:900, 50:550]
     if image_match(img, REF_CULTIVATE_SUPPORT_CARD_EMPTY).find_match:
@@ -201,7 +201,7 @@ def script_extend_umamusume_select(ctx: UmamusumeContext):
 
 def script_support_card_select(ctx: UmamusumeContext):
     if ctx.cultivate_detail.no_tp:
-        ctx.ctrl.click(360, 1220, "返回主界面")
+        ctx.ctrl.click_by_point(GO_HOME)
         return
     img = ctx.ctrl.get_screen(to_gray=True)
     if image_match(img, REF_CULTIVATE_SUPPORT_CARD_EMPTY).find_match:

@@ -15,6 +15,7 @@ import bot.base.log as logger
 
 log = logger.get_logger(__name__)
 
+# TODO 这里可能需要作出更改，if的条件难以维系
 TITLE = [
     "赛事详情",
     "休息&外出确认",

@@ -2,8 +2,13 @@ from bot.base.common import Coordinate
 from bot.base.point import ClickPoint, ClickPointType
 from module.umamusume.asset.template import *
 
+
+GO_HOME = ClickPoint(ClickPointType.CLICK_POINT_TYPE_COORDINATE, None, Coordinate(360, 1230), "返回主页", None)
+CLICK_FOR_NOT_FOUND_UI = ClickPoint(ClickPointType.CLICK_POINT_TYPE_COORDINATE, None, Coordinate(719, 1), "NOT_FOUND_UI", None)
+
 # cultivate
 TO_CULTIVATE_SCENARIO_CHOOSE = ClickPoint(ClickPointType.CLICK_POINT_TYPE_COORDINATE, None, Coordinate(545, 1085), "前往剧本选择", None)
+TO_CULTIVATE_SCENARIO_NEXT = ClickPoint(ClickPointType.CLICK_POINT_TYPE_COORDINATE, None, Coordinate(700, 585), "翻找剧本：", None)
 TO_CULTIVATE_PREPARE_NEXT = ClickPoint(ClickPointType.CLICK_POINT_TYPE_COORDINATE, None, Coordinate(355, 1080), "育成准备-前往下一步")
 CULTIVATE_FINAL_CHECK_START = ClickPoint(ClickPointType.CLICK_POINT_TYPE_COORDINATE, None, Coordinate(500, 1185), "开始育成")
 TO_FOLLOW_SUPPORT_CARD_SELECT = ClickPoint(ClickPointType.CLICK_POINT_TYPE_COORDINATE, None, Coordinate(570, 680), "借用支援卡")
@@ -116,9 +121,10 @@ USE_DIAMOND_PLUS_MARK = ClickPoint(ClickPointType.CLICK_POINT_TYPE_COORDINATE, N
 DATE_CHANGE_CONFIRM = ClickPoint(ClickPointType.CLICK_POINT_TYPE_COORDINATE, None, Coordinate(360, 840), "日期变化", None)
 CONNECTION_LOST_RESUME = ClickPoint(ClickPointType.CLICK_POINT_TYPE_COORDINATE, None, Coordinate(360, 840), "返回标题页面", None)
 
+
 # team stadium
 TO_RACE = ClickPoint(ClickPointType.CLICK_POINT_TYPE_COORDINATE, None, Coordinate(520, 1230), "前往赛事", None)
-GO_HOME_FROM_RACE = ClickPoint(ClickPointType.CLICK_POINT_TYPE_COORDINATE, None, Coordinate(360, 1230), "返回主页", None)
+GO_HOME_FROM_RACE = GO_HOME
 TO_TEAM_STADIUM = ClickPoint(ClickPointType.CLICK_POINT_TYPE_COORDINATE, None, Coordinate(220, 830), "前往团队竞技场", None)
 TO_TEAM_RACE = ClickPoint(ClickPointType.CLICK_POINT_TYPE_COORDINATE, None, Coordinate(360, 800), "前往团队赛事", None)
 
@@ -152,7 +158,7 @@ TIME_SALE_COMMON_CONFIRM = ClickPoint(ClickPointType.CLICK_POINT_TYPE_COORDINATE
 
 # donate
 TO_GUILD = ClickPoint(ClickPointType.CLICK_POINT_TYPE_COORDINATE, None, Coordinate(60, 1100), "前往社团", None)
-GO_HOME_FROM_GUILD = GO_HOME_FROM_RACE
+GO_HOME_FROM_GUILD = GO_HOME
 DONATE_TO_REQ_LIST = ClickPoint(ClickPointType.CLICK_POINT_TYPE_COORDINATE, None, Coordinate(130, 610), "前往请求列表", None)
 DONATE_RETURN_FROM_REQ = ClickPoint(ClickPointType.CLICK_POINT_TYPE_COORDINATE, None, Coordinate(360, 1180), "关闭", None)
 DONATE_TO_ASK = ClickPoint(ClickPointType.CLICK_POINT_TYPE_COORDINATE, None, Coordinate(120, 1090), "前往要鞋", None)

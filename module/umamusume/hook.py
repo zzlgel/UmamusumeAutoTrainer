@@ -19,6 +19,7 @@ def after_hook(ctx: UmamusumeContext):
     if image_match(img, BTN_SKIP).find_match:
         ctx.ctrl.click_by_point(SKIP)
     if ctx.task.task_type == UmamusumeTaskType.UMAMUSUME_TASK_TYPE_CULTIVATE:
+        # TODO 每回合都需要两次无效匹配
         if image_match(img, BTN_SKIP_OFF).find_match:
             ctx.ctrl.click_by_point(SCENARIO_SKIP_OFF)
         if image_match(img, BTN_SKIP_SPEED_1).find_match:
@@ -32,6 +33,7 @@ def after_hook(ctx: UmamusumeContext):
                     ctx.cultivate_detail.turn_info.turn_operation = get_operation(ctx)
                     ctx.cultivate_detail.turn_info.turn_operation.log_turn_operation()
     elif ctx.task.task_type == UmamusumeTaskType.UMAMUSUME_TASK_TYPE_TEAM_STADIUM:
+        # TODO 这里不是重复吗？？
         if image_match(img, BTN_SKIP).find_match:
             ctx.ctrl.click_by_point(SKIP)
 

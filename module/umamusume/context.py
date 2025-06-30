@@ -98,10 +98,12 @@ class UmaAttribute:
         return self.speed, self.stamina, self.power, self.will, self.intelligence, self.skill_point
 
 
+# TODO 不知道啥意思
 class SkillHint:
     group_id: int
     rarity: int
     level: int
+    name: str
 
     def __init__(self, group_id=0, rarity=0, level=0, name=""):
         self.group_id = group_id
@@ -116,6 +118,7 @@ class SkillHint:
 class LearntSkill:
     skill_id: int
     level: int
+    # 固有技能
     is_inherent: bool
     name: str
 
@@ -130,6 +133,7 @@ class LearntSkill:
         return f"{name}@{self.skill_id} " + (f"等级{self.level:d}" if self.is_inherent else "")
 
 
+# TODO 不知道什么意思
 class UraInfo:
     class LinkCardInfo:
         first_click: bool

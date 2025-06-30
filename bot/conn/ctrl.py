@@ -8,7 +8,7 @@ class AndroidController(metaclass=ABCMeta):
     def init_env(self):
         pass
 
-    def click_by_point(self, point: ClickPoint):
+    def click_by_point(self, point: ClickPoint, extra_info=None):
         pass
 
     def click(self, x, y, name):

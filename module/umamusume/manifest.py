@@ -144,6 +144,7 @@ def exec_script(ctx: UmamusumeContext):
         print("未找到此界面对应的默认脚本")
 
 
+# 初始化脚本
 UmamusumeManifest = AppManifest(
     app_name="umamusume",
     app_package_name="com.bilibili.umamusu",

@@ -53,6 +53,7 @@ def find_text_pos(ocr_result, target):
     return result
 
 
+# TODO 为何不返回列表索引和匹配文本呢
 def find_similar_text(target_text, ref_text_list, threshold=0):
     result = ""
     for ref_text in ref_text_list:

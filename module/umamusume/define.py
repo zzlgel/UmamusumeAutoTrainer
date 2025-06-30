@@ -5,6 +5,7 @@ class ScenarioType(Enum):
     SCENARIO_TYPE_UNKNOWN = 0
     SCENARIO_TYPE_URA = 1
     SCENARIO_TYPE_AOHARU = 2
+
     SCENARIO_TYPE_TRACK = 3
     SCENARIO_TYPE_LIVE = 4
     SCENARIO_TYPE_MASTER = 5
@@ -23,6 +24,7 @@ class SupportCardType(Enum):
     SUPPORT_CARD_TYPE_WILL = 4
     SUPPORT_CARD_TYPE_INTELLIGENCE = 5
     SUPPORT_CARD_TYPE_FRIEND = 6
+    
     SUPPORT_CARD_TYPE_GROUP = 7
     SUPPORT_CARD_TYPE_NPC = 10
 
@@ -30,6 +32,7 @@ class SupportCardType(Enum):
         return {1: '速', 2: '耐', 3: '力', 4: '根', 5: '智', 6: '友', 7: '队', 10: 'NPC', 0: "未知"}.get(self.value, "")
 
 
+# 支援卡友情值
 class SupportCardFavorLevel(Enum):
     SUPPORT_CARD_FAVOR_LEVEL_UNKNOWN = 0
     SUPPORT_CARD_FAVOR_LEVEL_1 = 1
@@ -62,7 +65,7 @@ class MotivationLevel(Enum):
     MOTIVATION_LEVEL_5 = 5
 
     def __str__(self):
-        return {1: '絶不調', 2: '不調', 3: '普通', 4: '好調', 5: '絶好調', 0: "未知"}.get(self.value, "")
+        return {1: '极差', 2: '不佳', 3: '普通', 4: '上佳', 5: '极佳', 0: "未知"}.get(self.value, "")
 
 
 class TurnOperationType(Enum):
@@ -77,12 +80,16 @@ class TurnOperationType(Enum):
         return {1: '训练', 2: '休息', 3: '医务室', 4: '外出', 5: '赛事', 0: "未知"}.get(self.value, "")
 
 
+# ？？？什么目的呢
 class SupportCardUma(Enum):
     SUPPORT_CARD_UMA_UNKNOWN = 0
+    # 秋川理事长
     SUPPORT_CARD_UMA_AKIKAWA = 1
+    # 乙名史记者
     SUPPORT_CARD_UMA_REPORTER = 2
 
 
+# 赛事战术，后追，居中，跟前，领跑
 class RaceTacticType(Enum):
     RACE_TACTIC_TYPE_UNKNOWN = 0
     RACE_TACTIC_TYPE_BACK = 1
@@ -121,6 +128,7 @@ class Condition(Enum):
     CONDITION_JOUNETSUZONE = 100
     CONDITION_ALL = 0
 
+    # https://wiki.biligame.com/umamusume/%E8%82%B2%E6%88%90%E7%8A%B6%E6%80%81
     def __str__(self):
         return {1: '夜ふかし気味', 2: 'なまけ癖', 3: '肌あれ', 4: '太り気味', 5: '片頭痛', 6: '練習ベタ', 7: '切れ者', 8: '愛嬌◯',
                 9: '注目株', 10: '練習上手◯', 11: '練習上手◎', 12: '小さなほころび', 13: '大輪の輝き', 14: 'ファンとの約束・北海道',

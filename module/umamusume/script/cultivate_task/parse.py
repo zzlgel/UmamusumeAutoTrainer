@@ -12,13 +12,18 @@ from module.umamusume.context import UmamusumeContext, SupportCardInfo
 from module.umamusume.asset import *
 from module.umamusume.define import *
 from module.umamusume.script.cultivate_task.const import DATE_YEAR, DATE_MONTH
+from module.umamusume.asset.point import TO_CULTIVATE_SCENARIO_NEXT
 import bot.base.log as logger
 
 log = logger.get_logger(__name__)
 
 
+# 识别回合数
 def parse_date(img, ctx: UmamusumeContext) -> int:
+    # ctx.cultivate_detail.scenario == ScenarioType.SCENARIO_TYPE_URA
     sub_img_date = img[35:75, 10:220]
+    # sub_img_date = img[42:65, 160:380]
+    # TODO 为什么要添加边框呢
     sub_img_date = cv2.copyMakeBorder(sub_img_date, 20, 20, 20, 20, cv2.BORDER_CONSTANT, None, (255, 255, 255))
     date_text = ocr_line(sub_img_date)
     year_text = ""
@@ -390,14 +395,14 @@ def find_race(ctx: UmamusumeContext, img, race_id: int = 0) -> bool:
     return False
 
 
+# 翻找剧本
 def find_scenario(ctx: UmamusumeContext, img, scenario_id: int = 0) -> bool:
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     target_race_template = SCENARIO_LIST[scenario_id][2]
     if target_race_template is not None:
         if image_match(img, target_race_template).find_match:
             return True
-    ctx.ctrl.click(700, 585,
-                   "寻找剧本：" + str(SCENARIO_LIST[scenario_id][1]))
+    ctx.ctrl.click_by_point(TO_CULTIVATE_SCENARIO_NEXT, str(SCENARIO_LIST[scenario_id][1]))
     return False
 
 
