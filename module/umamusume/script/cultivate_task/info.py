@@ -54,6 +54,8 @@ TITLE = [
     "数据下载",
     "解锁剧情",
     "确定因子确认",
+    "自动编成",
+    "对战确认",
 ]
 
 
@@ -189,6 +191,10 @@ def script_info(ctx: UmamusumeContext):
             ctx.ctrl.click(520, 830, "数据下载确认")
         if title_text == TITLE[36]:
             ctx.ctrl.click_by_point(CULTIVATE_FACTOR_RECEIVE_CONFIRM)
+        if title_text == TITLE[37]:
+            ctx.ctrl.click(202, 833, "自动编成-关闭")
+        if title_text == TITLE[38]:
+            ctx.ctrl.click(520, 920, "对战确认")
         if title_text not in TITLE and title_text in common_info:
             common_info[title_text](ctx)
         time.sleep(1)

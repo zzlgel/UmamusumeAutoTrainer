@@ -86,7 +86,10 @@ script_dicts: Dict[UmamusumeTaskType, dict] = {
         CULTIVATE_URA_RACE_2: script_cultivate_goal_race,
         CULTIVATE_URA_RACE_3: script_cultivate_goal_race,
         ACTIVITY_RESULT: script_cultivate_result,
-        ACTIVITY_REWARD: script_cultivate_result
+        ACTIVITY_REWARD: script_cultivate_result,
+        YOUTHCAP_GROUP_RACE: script_youthcap_group_race,
+        # 青春杯结果页面，暂且直接复制团队竞技场，因为两个页面就是复用的，
+        TEAM_STADIUM_RESULTS: script_team_stadium_results,
     },
     UmamusumeTaskType.UMAMUSUME_TASK_TYPE_TEAM_STADIUM: {
         MAIN_MENU: ts_script_main_menu,

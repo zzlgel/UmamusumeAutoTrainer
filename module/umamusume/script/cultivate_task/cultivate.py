@@ -10,12 +10,13 @@ from module.umamusume.context import TurnInfo
 from module.umamusume.script.cultivate_task.const import SKILL_LEARN_PRIORITY_LIST
 from module.umamusume.script.cultivate_task.event import Event
 from module.umamusume.script.cultivate_task.parse import *
+from module.umamusume.script.cultivate_task.event.manifest import get_event_choice
 try:
     from module.umamusume.script.ura.cultivate import ura_parse_cultivate_main_menu, ura_get_event_choice_by_effect
     from module.umamusume.script.ura.skill_ai import ura_script_cultivate_learn_skill
 except ImportError:
     def ura_get_event_choice_by_effect(ctx: UmamusumeContext):
-        return
+        return get_event_choice
     ura_parse_cultivate_main_menu = parse_cultivate_main_menu
 
     def ura_script_cultivate_learn_skill(ctx: UmamusumeContext,
@@ -26,6 +27,97 @@ except ImportError:
 log = logger.get_logger(__name__)
 
 
+# 游戏主页面
+def script_main_menu(ctx: UmamusumeContext):
+    if ctx.cultivate_detail.cultivate_finish:
+        ctx.task.end_task(TaskStatus.TASK_STATUS_SUCCESS, EndTaskReason.COMPLETE)
+        return
+    if ctx.cultivate_detail.no_tp or (time.time() - ctx.task.detail.
+       timestamp['no_tp'].get(ctx.task.device_name or "default", 0) < 300):
+        ctx.task.end_task(TaskStatus.TASK_STATUS_FAILED, UEndTaskReason.TP_NOT_ENOUGH)
+        return
+    if ts := ctx.task.detail.timestamp['borrowed'].get(ctx.task.device_name or "default", 0):
+        import croniter
+        import datetime
+        if time.time() < croniter.croniter("0 5 * * *", ts).get_next(datetime.datetime).timestamp():
+            ctx.task.end_task(TaskStatus.TASK_STATUS_FAILED, UEndTaskReason.BORROWED)
+            return
+    ctx.ctrl.click_by_point(TO_CULTIVATE_SCENARIO_CHOOSE)
+
+
+# 选择剧本
+def script_scenario_select(ctx: UmamusumeContext):
+    if ctx.cultivate_detail.no_tp or ctx.cultivate_detail.borrowed:
+        ctx.ctrl.click_by_point(GO_HOME)
+        return
+    for _ in range(20):
+        img = ctx.ctrl.get_screen()
+        if find_scenario(ctx, img, ctx.cultivate_detail.scenario.value):
+            ctx.ctrl.click_by_point(TO_CULTIVATE_PREPARE_NEXT)
+            return
+    else:
+        # 未找到目标剧本
+        ctx.ctrl.click_by_point(GO_HOME)
+
+
+# 赛马娘选择界面 TODO 未提供选择马娘的方法 
+def script_umamusume_select(ctx: UmamusumeContext):
+    if ctx.cultivate_detail.no_tp or ctx.cultivate_detail.borrowed:
+        ctx.ctrl.click_by_point(GO_HOME)
+        return
+    ctx.ctrl.click_by_point(TO_CULTIVATE_PREPARE_NEXT)
+
+
+
+# 借用他人赛马？
+def script_extend_umamusume_select(ctx: UmamusumeContext):
+    if ctx.cultivate_detail.no_tp or ctx.cultivate_detail.borrowed:
+        ctx.ctrl.click_by_point(GO_HOME)
+        return
+    img = ctx.ctrl.get_screen(to_gray=True)[700:900, 50:550]
+    if image_match(img, REF_CULTIVATE_SUPPORT_CARD_EMPTY).find_match:
+        ctx.cultivate_detail.borrowed = True
+        ctx.task.detail.timestamp['borrowed'][ctx.task.device_name or "default"] = time.time()
+        return
+    ctx.ctrl.click_by_point(TO_CULTIVATE_PREPARE_NEXT)
+
+
+# 跳转选择支援卡页面
+def script_support_card_select(ctx: UmamusumeContext):
+    if ctx.cultivate_detail.no_tp:
+        ctx.ctrl.click_by_point(GO_HOME)
+        return
+    img = ctx.ctrl.get_screen(to_gray=True)
+    if image_match(img, REF_CULTIVATE_SUPPORT_CARD_EMPTY).find_match:
+        ctx.ctrl.click_by_point(TO_FOLLOW_SUPPORT_CARD_SELECT)
+        return
+    ctx.ctrl.click_by_point(TO_CULTIVATE_PREPARE_NEXT)
+
+
+# 选择好友支援卡
+def script_follow_support_card_select(ctx: UmamusumeContext):
+    img = ctx.ctrl.get_screen()
+    while True:
+        selected = find_support_card(ctx, img)
+        if selected:
+            break
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        if compare_color_equal(img[1096, 693], [125, 120, 142]):
+            while True:
+                img = cv2.cvtColor(ctx.ctrl.get_screen(), cv2.COLOR_BGR2RGB)
+                if compare_color_equal(img[127, 697], [211, 209, 219]):
+                    ctx.ctrl.swipe(x1=350, y1=400, x2=350, y2=1000, duration=200, name="")
+                else:
+                    break
+            ctx.ctrl.click_by_point(FOLLOW_SUPPORT_CARD_SELECT_REFRESH)
+            return
+        ctx.ctrl.swipe(x1=350, y1=1000, x2=350, y2=400, duration=1000, name="")
+        time.sleep(1)
+        img = ctx.ctrl.get_screen()
+
+
+
+# 新回合，解析主页面
 def script_cultivate_main_menu(ctx: UmamusumeContext):
     img = ctx.current_screen
     current_date = parse_date(img, ctx)
@@ -48,6 +140,7 @@ def script_cultivate_main_menu(ctx: UmamusumeContext):
     if not ctx.cultivate_detail.turn_info.parse_main_menu_finish:
         parse_cultivate_main_menu(ctx, img)
 
+    # 存在自定义比赛
     has_extra_race = len([i for i in ctx.cultivate_detail.extra_race_list if str(i)[:2]
                           == str(ctx.cultivate_detail.turn_info.date)]) != 0
 
@@ -99,6 +192,7 @@ def script_cultivate_main_menu(ctx: UmamusumeContext):
                 ctx.ctrl.click_by_point(CULTIVATE_RACE)
 
 
+# 当前为训练选择界面，综合判断训练类型
 def script_cultivate_training_select(ctx: UmamusumeContext):
     if ctx.cultivate_detail.turn_info is None:
         log.warning("回合信息未初始化")
@@ -120,6 +214,7 @@ def script_cultivate_training_select(ctx: UmamusumeContext):
             return
 
     if not ctx.cultivate_detail.turn_info.parse_train_info_finish:
+        # 切换到训练页面，必定会默认选择第一个，或者选择上一次训练项目。防止直接点以选择的项目触发训练，所以先解析一次，再点击其他项继续解析
         img = ctx.current_screen
         train_type = parse_train_type(ctx, img)
         if train_type == TrainingType.TRAINING_TYPE_UNKNOWN:
@@ -133,6 +228,7 @@ def script_cultivate_training_select(ctx: UmamusumeContext):
                 max_retry = 3
                 ctx.ctrl.click_by_point(TRAINING_POINT_LIST[i])
                 img = ctx.ctrl.get_screen()
+                # 这里循环等待可能是因为切换加载速度过慢，需要重复获取屏幕直到获取到训练界面的图片
                 while parse_train_type(ctx, img) != TrainingType(i + 1) and retry < max_retry:
                     if retry > 2:
                         ctx.ctrl.click_by_point(TRAINING_POINT_LIST[i])
@@ -149,92 +245,12 @@ def script_cultivate_training_select(ctx: UmamusumeContext):
         return
 
 
-def script_main_menu(ctx: UmamusumeContext):
-    if ctx.cultivate_detail.cultivate_finish:
-        ctx.task.end_task(TaskStatus.TASK_STATUS_SUCCESS, EndTaskReason.COMPLETE)
-        return
-    if ctx.cultivate_detail.no_tp or (time.time() - ctx.task.detail.
-       timestamp['no_tp'].get(ctx.task.device_name or "default", 0) < 300):
-        ctx.task.end_task(TaskStatus.TASK_STATUS_FAILED, UEndTaskReason.TP_NOT_ENOUGH)
-        return
-    if ts := ctx.task.detail.timestamp['borrowed'].get(ctx.task.device_name or "default", 0):
-        import croniter
-        import datetime
-        if time.time() < croniter.croniter("0 5 * * *", ts).get_next(datetime.datetime).timestamp():
-            ctx.task.end_task(TaskStatus.TASK_STATUS_FAILED, UEndTaskReason.BORROWED)
-            return
-    ctx.ctrl.click_by_point(TO_CULTIVATE_SCENARIO_CHOOSE)
-
-
-def script_scenario_select(ctx: UmamusumeContext):
-    if ctx.cultivate_detail.no_tp or ctx.cultivate_detail.borrowed:
-        ctx.ctrl.click_by_point(GO_HOME)
-        return
-    for _ in range(20):
-        img = ctx.ctrl.get_screen()
-        if find_scenario(ctx, img, ctx.cultivate_detail.scenario.value):
-            ctx.ctrl.click_by_point(TO_CULTIVATE_PREPARE_NEXT)
-            return
-    else:
-        # 未找到目标剧本
-        ctx.ctrl.click_by_point(GO_HOME)
-
-
-def script_umamusume_select(ctx: UmamusumeContext):
-    if ctx.cultivate_detail.no_tp or ctx.cultivate_detail.borrowed:
-        ctx.ctrl.click_by_point(GO_HOME)
-        return
-    ctx.ctrl.click_by_point(TO_CULTIVATE_PREPARE_NEXT)
-
-
-def script_extend_umamusume_select(ctx: UmamusumeContext):
-    if ctx.cultivate_detail.no_tp or ctx.cultivate_detail.borrowed:
-        ctx.ctrl.click_by_point(GO_HOME)
-        return
-    img = ctx.ctrl.get_screen(to_gray=True)[700:900, 50:550]
-    if image_match(img, REF_CULTIVATE_SUPPORT_CARD_EMPTY).find_match:
-        ctx.cultivate_detail.borrowed = True
-        ctx.task.detail.timestamp['borrowed'][ctx.task.device_name or "default"] = time.time()
-        return
-    ctx.ctrl.click_by_point(TO_CULTIVATE_PREPARE_NEXT)
-
-
-def script_support_card_select(ctx: UmamusumeContext):
-    if ctx.cultivate_detail.no_tp:
-        ctx.ctrl.click_by_point(GO_HOME)
-        return
-    img = ctx.ctrl.get_screen(to_gray=True)
-    if image_match(img, REF_CULTIVATE_SUPPORT_CARD_EMPTY).find_match:
-        ctx.ctrl.click_by_point(TO_FOLLOW_SUPPORT_CARD_SELECT)
-        return
-    ctx.ctrl.click_by_point(TO_CULTIVATE_PREPARE_NEXT)
-
-
-def script_follow_support_card_select(ctx: UmamusumeContext):
-    img = ctx.ctrl.get_screen()
-    while True:
-        selected = find_support_card(ctx, img)
-        if selected:
-            break
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        if compare_color_equal(img[1096, 693], [125, 120, 142]):
-            while True:
-                img = cv2.cvtColor(ctx.ctrl.get_screen(), cv2.COLOR_BGR2RGB)
-                if compare_color_equal(img[127, 697], [211, 209, 219]):
-                    ctx.ctrl.swipe(x1=350, y1=400, x2=350, y2=1000, duration=200, name="")
-                else:
-                    break
-            ctx.ctrl.click_by_point(FOLLOW_SUPPORT_CARD_SELECT_REFRESH)
-            return
-        ctx.ctrl.swipe(x1=350, y1=1000, x2=350, y2=400, duration=1000, name="")
-        time.sleep(1)
-        img = ctx.ctrl.get_screen()
-
-
+# 最终确认 
 def script_cultivate_final_check(ctx: UmamusumeContext):
     ctx.ctrl.click_by_point(CULTIVATE_FINAL_CHECK_START)
 
 
+# 选择培育事件选项
 def script_cultivate_event(ctx: UmamusumeContext):
     img = ctx.ctrl.get_screen()
     event_name, selector_list = parse_cultivate_event(ctx, img)
@@ -244,7 +260,9 @@ def script_cultivate_event(ctx: UmamusumeContext):
         # 避免出现选项残缺的情况，这里重新解析一次
         img = ctx.ctrl.get_screen()
         event_name, selector_list = parse_cultivate_event(ctx, img)
-        choice_index = ura_get_event_choice_by_effect(ctx) or Event(event_name)(ctx)
+        # 这里可能是有dmm版的数据才能使用，但是纯模拟器模拟器无法使用
+        # choice_index = ura_get_event_choice_by_effect(ctx) or Event(event_name)(ctx)
+        choice_index = get_event_choice(ctx, event_name)
         # 意外情况容错
         if choice_index > len(selector_list):
             choice_index = 1
@@ -254,6 +272,7 @@ def script_cultivate_event(ctx: UmamusumeContext):
         log.debug("未出现选项")
 
 
+# 目标比赛回合
 def script_cultivate_goal_race(ctx: UmamusumeContext):
     img = ctx.current_screen
     current_date = parse_date(img, ctx)
@@ -277,6 +296,7 @@ def script_cultivate_goal_race(ctx: UmamusumeContext):
     ctx.cultivate_detail.turn_info.turn_learn_skill_done = False
 
 
+# 比赛列表
 def script_cultivate_race_list(ctx: UmamusumeContext):
     time.sleep(2)
     if ctx.cultivate_detail.turn_info is None:
@@ -325,6 +345,7 @@ def script_cultivate_race_list(ctx: UmamusumeContext):
             ctx.ctrl.click_by_point(RETURN_TO_CULTIVATE_MAIN_MENU)
 
 
+# 比赛前准备，并点击比赛
 def script_cultivate_before_race(ctx: UmamusumeContext):
     img = cv2.cvtColor(ctx.current_screen, cv2.COLOR_BGR2RGB)
     p_check_skip = img[1175, 330]
@@ -346,10 +367,12 @@ def script_cultivate_before_race(ctx: UmamusumeContext):
         ctx.ctrl.click_by_point(BEFORE_RACE_SKIP)
 
 
+# 第一次需要在比赛中点击确认
 def script_cultivate_in_race_uma_list(ctx: UmamusumeContext):
     ctx.ctrl.click_by_point(IN_RACE_UMA_LIST_CONFIRM)
 
 
+# 第一次需要在比赛中点击跳过
 def script_in_race(ctx: UmamusumeContext):
     ctx.ctrl.click_by_point(IN_RACE_SKIP)
 
@@ -555,3 +578,19 @@ def script_historical_rating_update(ctx: UmamusumeContext):
 
 def script_scenario_rating_update(ctx: UmamusumeContext):
     ctx.ctrl.click_by_point(SCENARIO_RATING_UPDATE_CONFIRM)
+
+
+# 青春杯,暂且先匹配中间过程和最后下一步，最后执行第一步
+def script_youthcap_group_race(ctx: UmamusumeContext):
+    img = ctx.current_screen
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    result = image_match(img, REF_YOUTHCAP_RACE_RESULT)
+    if result.find_match:
+        ctx.ctrl.click(result.center_point[0], result.center_point[1], "查看各赛事结果")
+        return
+    result = image_match(img, REF_YOUTHCAP_RACE_RESULT_NEXT)
+    if result.find_match:
+        ctx.ctrl.click(result.center_point[0], result.center_point[1], "下一步")
+        return
+    # TODO 额？这里需要重新整理一下，虽然能执行，但貌似不太对
+    ctx.ctrl.click_by_point(YOUTHCAP_GROUP_RACE_MAIN)

@@ -121,6 +121,7 @@ USE_DIAMOND_PLUS_MARK = ClickPoint(ClickPointType.CLICK_POINT_TYPE_COORDINATE, N
 DATE_CHANGE_CONFIRM = ClickPoint(ClickPointType.CLICK_POINT_TYPE_COORDINATE, None, Coordinate(360, 840), "日期变化", None)
 CONNECTION_LOST_RESUME = ClickPoint(ClickPointType.CLICK_POINT_TYPE_COORDINATE, None, Coordinate(360, 840), "返回标题页面", None)
 
+YOUTHCAP_GROUP_RACE_MAIN = ClickPoint(ClickPointType.CLICK_POINT_TYPE_COORDINATE, None, Coordinate(360, 1073), "青春杯-团队对抗赛-主界面", None)
 
 # team stadium
 TO_RACE = ClickPoint(ClickPointType.CLICK_POINT_TYPE_COORDINATE, None, Coordinate(520, 1230), "前往赛事", None)

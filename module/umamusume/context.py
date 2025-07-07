@@ -13,18 +13,30 @@ class SupportCardInfo:
     _favor: SupportCardFavorLevel
     has_event: bool
     favor_num: int | None
+    # 青春杯:是否青春训练，是否已经青春之魂爆发
+    youth_train: bool = False
+    youth_train_erupt: bool = False
+    youth_train_erupted: bool = False
+
+
 
     def __init__(self,
                  name: str = "support_card",
                  card_type: SupportCardType = SupportCardType.SUPPORT_CARD_TYPE_UNKNOWN,
                  favor: SupportCardFavorLevel = SupportCardFavorLevel.SUPPORT_CARD_FAVOR_LEVEL_UNKNOWN,
                  has_event: bool = False,
-                 favor_num: int | None = None):
+                 favor_num: int | None = None,
+                 youth_train: bool = False,
+                 youth_train_erupt: bool = False,
+                 youth_train_erupted: bool = False):
         self.name = name
         self.card_type = card_type
         self._favor = favor
         self.has_event = has_event
         self.favor_num = favor_num
+        self.youth_train = youth_train
+        self.youth_train_erupt = youth_train_erupt
+        self.youth_train_erupted = youth_train_erupted
 
     @property
     def favor(self):
