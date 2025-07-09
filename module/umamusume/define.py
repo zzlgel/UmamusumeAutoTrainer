@@ -4,7 +4,7 @@ from enum import Enum
 class ScenarioType(Enum):
     SCENARIO_TYPE_UNKNOWN = 0
     SCENARIO_TYPE_URA = 1
-    SCENARIO_TYPE_AOHARU = 2
+    SCENARIO_TYPE_AOHARUHAI = 2
 
     SCENARIO_TYPE_TRACK = 3
     SCENARIO_TYPE_LIVE = 4

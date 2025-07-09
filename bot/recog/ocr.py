@@ -6,10 +6,6 @@ import bot.base.log as logger
 
 log = logger.get_logger(__name__)
 
-OCR_JP = paddleocr.PaddleOCR(lang="japan", 
-                             use_doc_orientation_classify=False, 
-                             use_doc_unwarping=False, 
-                             use_textline_orientation=False)
 OCR_CH = paddleocr.PaddleOCR(lang="ch", 
                              use_doc_orientation_classify=False, 
                              use_doc_unwarping=False, 
@@ -23,8 +19,6 @@ def ocr(img, lang="ch"):
         if len(img.shape) == 2:
             img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)  # 转换为三通道彩色图像
         return OCR_CH.predict(img)
-    if lang == "japan":
-        return OCR_JP.predict(img)
 
 
 # ocr_line 文字识别图片，返回所有出现的文字
@@ -32,7 +26,17 @@ def ocr(img, lang="ch"):
 def ocr_line(img, lang="ch"):
     ocr_result = ocr(img, lang)
     text = ""
+    
+    for text_info in ocr_result:
+        if len(text_info["rec_texts"]) > 0:
+            text += ', '.join(text_info["rec_texts"])
+    return text
 
+# TODO 暂且这么改，其实本质没有太大变化。
+def ocr_digits(img, lang="ch"):
+    ocr_result = ocr(img, lang)
+    text = ""
+    
     for text_info in ocr_result:
         if len(text_info["rec_texts"]) > 0:
             text += ', '.join(text_info["rec_texts"])

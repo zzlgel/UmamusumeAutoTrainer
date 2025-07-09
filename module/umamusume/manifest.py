@@ -56,6 +56,10 @@ script_dicts: Dict[UmamusumeTaskType, dict] = {
         CULTIVATE_EVENT_UMAMUSUME: script_cultivate_event,
         CULTIVATE_EVENT_SUPPORT_CARD: script_cultivate_event,
         CULTIVATE_EVENT_SCENARIO: script_cultivate_event,
+        AOHARUHAI_RACE: script_aoharuhai_race,
+        AOHARUHAI_RACE_INRACE: script_aoharuhai_race_inrace,
+        AOHARUHAI_RACE_END: script_aoharuhai_race_end,
+        AOHARUHAI_RACE_SCHEDULE: script_aoharuhai_race_schedule,
         CULTIVATE_GOAL_RACE: script_cultivate_goal_race,
         CULTIVATE_RACE_LIST: script_cultivate_race_list,
         BEFORE_RACE: script_cultivate_before_race,
@@ -90,6 +94,8 @@ script_dicts: Dict[UmamusumeTaskType, dict] = {
         YOUTHCAP_GROUP_RACE: script_youthcap_group_race,
         # 青春杯结果页面，暂且直接复制团队竞技场，因为两个页面就是复用的，
         TEAM_STADIUM_RESULTS: script_team_stadium_results,
+        FUJIKISEKI_SHOW_MODE_RESULT_1: script_fujikiseki_show_result_1,
+        FUJIKISEKI_SHOW_MODE_RESULT_2: script_fujikiseki_show_result_2
     },
     UmamusumeTaskType.UMAMUSUME_TASK_TYPE_TEAM_STADIUM: {
         MAIN_MENU: ts_script_main_menu,

@@ -1,7 +1,8 @@
 import os.path
 import time
 
-from module.umamusume.context import UmamusumeContext, Condition, SupportCardInfo, LearntSkill, SkillHint
+from module.umamusume.context import UmamusumeContext, Condition
+from module.umamusume.types import *
 from module.umamusume.script.cultivate_task.parse import logger, parse_debut_race
 from module.umamusume.define import SupportCardType, MotivationLevel
 from module.umamusume.script.cultivate_task.event.event_ai import score_context, context_plus_effect, context_copy

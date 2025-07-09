@@ -1,5 +1,6 @@
 import json
 import time
+import threading
 
 import numpy as np
 
@@ -7,23 +8,24 @@ from bot.base.task import TaskStatus, EndTaskReason
 from module.umamusume.task import EndTaskReason as UEndTaskReason
 from module.umamusume.asset.point import *
 from module.umamusume.context import TurnInfo
+from module.umamusume.types import TurnInfo
 from module.umamusume.script.cultivate_task.const import SKILL_LEARN_PRIORITY_LIST
 from module.umamusume.script.cultivate_task.event import Event
 from module.umamusume.script.cultivate_task.parse import *
 from module.umamusume.script.cultivate_task.event.manifest import get_event_choice
-try:
-    from module.umamusume.script.ura.cultivate import ura_parse_cultivate_main_menu, ura_get_event_choice_by_effect
-    from module.umamusume.script.ura.skill_ai import ura_script_cultivate_learn_skill
-except ImportError:
-    def ura_get_event_choice_by_effect(ctx: UmamusumeContext):
-        return get_event_choice
-    ura_parse_cultivate_main_menu = parse_cultivate_main_menu
+# try:
+#     from module.umamusume.script.ura.cultivate import ura_parse_cultivate_main_menu, ura_get_event_choice_by_effect
+#     from module.umamusume.script.ura.skill_ai import ura_script_cultivate_learn_skill
+# except ImportError:
+#     def ura_get_event_choice_by_effect(ctx: UmamusumeContext):
+#         return get_event_choice
+#     ura_parse_cultivate_main_menu = parse_cultivate_main_menu
 
-    def ura_script_cultivate_learn_skill(ctx: UmamusumeContext,
-                                         learn_skill_list: list[list[str]],
-                                         learn_skill_blacklist: list[str]):
-        raise ImportError
-    print("未找到URA相关组件")
+#     def ura_script_cultivate_learn_skill(ctx: UmamusumeContext,
+#                                          learn_skill_list: list[list[str]],
+#                                          learn_skill_blacklist: list[str]):
+#         raise ImportError
+#     print("未找到URA相关组件")
 log = logger.get_logger(__name__)
 
 
@@ -50,14 +52,24 @@ def script_scenario_select(ctx: UmamusumeContext):
     if ctx.cultivate_detail.no_tp or ctx.cultivate_detail.borrowed:
         ctx.ctrl.click_by_point(GO_HOME)
         return
-    for _ in range(20):
-        img = ctx.ctrl.get_screen()
-        if find_scenario(ctx, img, ctx.cultivate_detail.scenario.value):
+    
+    target_scenario = ctx.cultivate_detail.scenario.scenario_type()
+    time.sleep(3) #如果网络非常差，这里可能会来不及等
+
+    for i in range(1, len(ScenarioType)):
+        img = ctx.ctrl.get_screen(to_gray=True)
+
+        if image_match(img, UI_SCENARIO[target_scenario]).find_match:
+            log.info(f"找到目标育成剧本{ctx.cultivate_detail.scenario.scenario_name()}")
             ctx.ctrl.click_by_point(TO_CULTIVATE_PREPARE_NEXT)
             return
-    else:
-        # 未找到目标剧本
-        ctx.ctrl.click_by_point(GO_HOME)
+
+        log.debug(f"剧本不匹配, 查看下一个剧本")
+        ctx.ctrl.swipe(x1=400, y1=600, x2=500, y2=600, duration=300, name="swipe right")
+        time.sleep(1)
+
+    log.error(f"找不到指定的剧本")
+    ctx.task.end_task(TaskStatus.TASK_STATUS_FAILED, EndTaskReason.SCENARIO_NOT_FOUND)
 
 
 # 赛马娘选择界面 TODO 未提供选择马娘的方法 
@@ -214,14 +226,28 @@ def script_cultivate_training_select(ctx: UmamusumeContext):
             return
 
     if not ctx.cultivate_detail.turn_info.parse_train_info_finish:
+        def _parse_training_in_thread(ctx, img, train_type):
+                    """Helper function to run parsing in a separate thread."""
+                    parse_training_result(ctx, img, train_type)
+                    parse_training_support_card(ctx, img, train_type)
+
+        threads :list[threading.Thread] = []
+        
         # 切换到训练页面，必定会默认选择第一个，或者选择上一次训练项目。防止直接点以选择的项目触发训练，所以先解析一次，再点击其他项继续解析
         img = ctx.current_screen
         train_type = parse_train_type(ctx, img)
         if train_type == TrainingType.TRAINING_TYPE_UNKNOWN:
             return
-        parse_training_result(ctx, img, train_type)
-        parse_training_support_card(ctx, img, train_type)
+        
+        # parse_training_result(ctx, img, train_type)
+        # parse_training_support_card(ctx, img, train_type)
+
         viewed = train_type.value
+        thread = threading.Thread(target=_parse_training_in_thread,
+                                          args=(ctx, img, train_type))
+        threads.append(thread)
+        thread.start()
+
         for i in range(5):
             if i != (viewed - 1):
                 retry = 0
@@ -237,8 +263,17 @@ def script_cultivate_training_select(ctx: UmamusumeContext):
                     retry += 1
                 if retry == max_retry:
                     return
-                parse_training_result(ctx, img, TrainingType(i + 1))
-                parse_training_support_card(ctx, img, TrainingType(i + 1))
+                # parse_training_result(ctx, img, TrainingType(i + 1))
+                # parse_training_support_card(ctx, img, TrainingType(i + 1))
+                
+                thread = threading.Thread(target=_parse_training_in_thread,
+                                          args=(ctx, img, TrainingType(i + 1)))
+                threads.append(thread)
+                thread.start()
+
+        for thread in threads:
+            thread.join()
+
         ctx.cultivate_detail.turn_info.parse_train_info_finish = True
     if not ctx.cultivate_detail.turn_info.parse_main_menu_finish:
         ctx.ctrl.click_by_point(RETURN_TO_CULTIVATE_MAIN_MENU)
@@ -271,6 +306,62 @@ def script_cultivate_event(ctx: UmamusumeContext):
     else:
         log.debug("未出现选项")
 
+
+def script_aoharuhai_race(ctx: UmamusumeContext):
+    def select_opponent (race_index: int):
+        match race_index:
+            case 1:
+                ctx.ctrl.click(360, 290, "选择第一个对手")
+            case 2:
+                ctx.ctrl.click(360, 560, "选择第二个对手")
+            case 3:
+                ctx.ctrl.click(360, 830, "选择第三个对手")
+        time.sleep(2)
+        ctx.ctrl.click(360, 1080, "开始对战")
+
+    img = ctx.ctrl.get_screen(to_gray=True)
+    if image_match(img, UI_AOHARUHAI_RACE_1).find_match:
+        race_index = 0
+    elif image_match(img, UI_AOHARUHAI_RACE_2).find_match:
+        race_index = 1
+    elif image_match(img, UI_AOHARUHAI_RACE_3).find_match:
+        race_index = 2
+    elif image_match(img, UI_AOHARUHAI_RACE_4).find_match:
+        race_index = 3
+    elif image_match(img, UI_AOHARUHAI_RACE_5).find_match:
+        race_index = 4
+    else:
+        ctx.ctrl.click(360, 1180, "确认比赛结果")
+        return
+
+    ctx.ctrl.click(360, 1080, "开始青春杯对战")
+
+    if race_index == 4:
+        while True:
+            time.sleep(1)
+            img = ctx.ctrl.get_screen(to_gray=True)
+            if image_match(img, UI_AOHARUHAI_RACE_FINAL_START).find_match:
+                break
+        ctx.ctrl.click(360, 980, "确认决赛对手")
+    else:
+        while True:
+            time.sleep(1)
+            img = ctx.ctrl.get_screen(to_gray=True)
+            if image_match(img, UI_AOHARUHAI_RACE_SELECT_OPPONENT).find_match:
+                break
+        select_opponent(ctx.task.detail.scenario_config.aoharu_config.get_opponent(race_index))
+
+def script_aoharuhai_race_confirm(ctx: UmamusumeContext):
+    ctx.ctrl.click(520, 920, "确认对战")
+
+def script_aoharuhai_race_inrace(ctx: UmamusumeContext):
+    ctx.ctrl.click(520, 1180, "查看对战结果")
+
+def script_aoharuhai_race_end(ctx: UmamusumeContext):
+    ctx.ctrl.click(350, 1110, "确认比赛结束")
+
+def script_aoharuhai_race_schedule(ctx: UmamusumeContext):
+    ctx.ctrl.click(360, 1100, "结束青春杯比赛")
 
 # 目标比赛回合
 def script_cultivate_goal_race(ctx: UmamusumeContext):
@@ -594,3 +685,11 @@ def script_youthcap_group_race(ctx: UmamusumeContext):
         return
     # TODO 额？这里需要重新整理一下，虽然能执行，但貌似不太对
     ctx.ctrl.click_by_point(YOUTHCAP_GROUP_RACE_MAIN)
+
+
+# 限时: 富士奇石的表演秀
+def script_fujikiseki_show_result_1(ctx: UmamusumeContext):
+    ctx.ctrl.click(360, 1180, "确认富士奇石表演秀模式结果")
+
+def script_fujikiseki_show_result_2(ctx: UmamusumeContext):
+    ctx.ctrl.click(360, 1120, "确认富士奇石表演秀模式结果")

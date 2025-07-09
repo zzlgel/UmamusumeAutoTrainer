@@ -1,7 +1,7 @@
 <template>
-  <div id="create-task-list-modal" class="modal fade">
+  <div id="create-task-list-modal" class="modal fade" data-backdrop="static" data-keyboard="false">
     <div  class="modal-dialog modal-dialog-centered modal-xl">
-      <div class="modal-content">
+      <div class="modal-content" :class="{ 'dimmed': showAoharuConfigModal }">
         <h5 class="modal-header">
           新建任务
         </h5>
@@ -58,6 +58,34 @@
                   </div>
                 </div>
               </div>
+              <!-- 青春杯额外配置 -->
+            <div class="row" v-if="selectedScenario.id === 2">
+              <div class="col-4">
+                <div class="form-group">
+                  <span class="btn auto-btn" style="width: 100%; background-color:#6c757d;" v-on:click="openAoharuConfigModal">青春杯配置</span>
+                </div>
+              </div>
+            </div>
+            <!-- 限时模块: 富士奇石的表演秀模式 -->
+            <div class="row">
+              <div class="col-3">
+                <div class="form-group">
+                  <label>⏰ 富士奇石的表演秀模式</label>
+                  <select v-model="fujikisekiShowMode" class="form-control">
+                    <option :value=true>是</option>
+                    <option :value=false>否</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-2">
+                <div class="form-group">
+                  <label :style="{ color: fujikisekiShowMode ? '' : 'lightgrey' }">选择难度</label>
+                  <select v-model="fujikisekiShowDifficulty" class="form-control" :disabled="!fujikisekiShowMode">
+                    <option v-for="n in 5" :key="n" :value="n">{{ n }}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
               <div class="row">
                 <div class="col-8">
                   <div class="form-group">
@@ -458,9 +486,19 @@
           </div>
         </div>
         <div class="modal-footer">
+          <span class="btn cancel-btn" v-on:click="cancelTask">取消</span>
           <span class="btn auto-btn" v-on:click="addTask">确定</span>
         </div>
       </div>
+      <!-- 青春杯配置弹窗 -->
+      <AoharuConfigModal
+        v-model:show="showAoharuConfigModal"
+        :preliminaryRoundSelections="preliminaryRoundSelections"
+        :aoharuTeamNameSelection="aoharuTeamNameSelection"
+        @confirm="handleAoharuConfigConfirm"
+      ></AoharuConfigModal>
+      <!-- 遮罩层 -->
+      <div v-if="showAoharuConfigModal" class="modal-backdrop-overlay" @click.stop></div>
       <!-- 通知 -->
       <div class="position-fixed" style="z-index: 5; right: 40%; width: 300px;">
         <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
@@ -474,8 +512,15 @@
 </template>
 
 <script>
+import SkillIcon from './SkillIcon.vue';
+import AoharuConfigModal from './AoharuConfigModal.vue';
+
 export default {
   name: "TaskEditModal",
+  components: {
+    SkillIcon,
+    AoharuConfigModal
+  },
   data:function () {
     return{
       showAdvanceOption:false,
@@ -483,6 +528,8 @@ export default {
       dataReady:false,
       hideG2: false,
       hideG3: false,
+      fujikisekiShowMode: false,
+      fujikisekiShowDifficulty: 1,
       levelDataList:[],
       umamusumeTaskTypeList:[
         {id: 1, name: "育成"},
@@ -907,6 +954,12 @@ export default {
       extraWeight1: [0, 0, 0, 0, 0],
       extraWeight2: [0, 0, 0, 0, 0],
       extraWeight3: [0, 0, 0, 0, 0],
+      
+      // 青春杯配置
+      preliminaryRoundSelections: [2, 1, 1, 1],
+      aoharuTeamNameSelection: 5,
+      showAoharuConfigModal: false,
+
       selectedOpponent: 1,
       opponentStamina: 600,
       timeSale: [0, 1, 2],
@@ -956,6 +1009,20 @@ export default {
     switchAdvanceOption: function(){
       this.showAdvanceOption = !this.showAdvanceOption
     },
+    openAoharuConfigModal: function(){
+      this.showAoharuConfigModal = true;
+    },
+    closeAoharuConfigModal: function(){
+      this.showAoharuConfigModal = false;
+    },
+    handleAoharuConfigConfirm: function(data) {
+      this.preliminaryRoundSelections = [...data.preliminaryRoundSelections];
+      this.aoharuTeamNameSelection = data.aoharuTeamNameSelection;
+      this.showAoharuConfigModal = false;
+    },
+    cancelTask: function(){
+      $('#create-task-list-modal').modal('hide');
+    },
     addTask: function (){
       let payload = {
         app_name: "umamusume",
@@ -992,7 +1059,15 @@ export default {
           "allow_recover_tp_diamond": this.recoverTPDiamond,
           "learn_skill_only_user_provided": this.learnSkillOnlyUserProvided,
           "learn_skill_before_race": this.learnSkillBeforeRace,
-          "extra_weight": [this.extraWeight1, this.extraWeight2, this.extraWeight3]
+          "extra_weight": [this.extraWeight1, this.extraWeight2, this.extraWeight3],
+          // 限时: 富士奇石的表演秀
+          "fujikiseki_show_mode": this.fujikisekiShowMode,
+          "fujikiseki_show_difficulty": this.fujikisekiShowDifficulty,
+          // 青春杯配置
+          "aoharu_config": this.selectedScenario.id === 2 ? {
+            "preliminaryRoundSelections": [...this.preliminaryRoundSelections],
+            "aoharuTeamNameSelection": this.aoharuTeamNameSelection
+          } : null
         }
       }
       else if (this.selectedUmamusumeTaskType.id === 2) {
@@ -1028,6 +1103,7 @@ export default {
       )
     },
     applyPresetRace: function(){
+      this.selectedScenario = this.scenarioList[this.presetsUse.scenario - 1] || this.scenarioList[0]
       // this.presetNameEdit = this.presetsUse.name
       this.extraRace = this.presetsUse.race_list
       this.expectSpeedValue = this.presetsUse.expect_attribute[0]
@@ -1088,7 +1164,11 @@ export default {
           this.deleteBox(0,this.skillPriorityNum-1)
         }
       }
-      
+      // 读取青春杯配置（如果存在）
+      if ('auharuhai_config' in this.presetsUse) {
+        this.preliminaryRoundSelections = [...this.presetsUse.auharuhai_config.preliminaryRoundSelections];
+        this.aoharuTeamNameSelection = this.presetsUse.auharuhai_config.aoharuTeamNameSelection;
+      }
     },
     getPresets: function(){
       this.axios.post("/umamusume/get-presets", "").then(
@@ -1103,6 +1183,7 @@ export default {
     addPresets: function(){
       let preset = {
         name: this.presetNameEdit,
+        scenario: this.selectedScenario.id,
         race_list: this.extraRace,
         skill_priority_list: [],
         skill_blacklist: this.skillLearnBlacklist,
@@ -1116,6 +1197,13 @@ export default {
         race_tactic_2: this.selectedRaceTactic2,
         race_tactic_3: this.selectedRaceTactic3,
         extraWeight: [this.extraWeight1,this.extraWeight2,this.extraWeight3]
+      }
+      // 仅当选择青春杯剧本时，才保存青春杯配置
+      if (this.selectedScenario === 2) {
+        preset.auharuhai_config = {
+          preliminaryRoundSelections: [...this.preliminaryRoundSelections],
+          aoharuTeamNameSelection: this.aoharuTeamNameSelection
+        };
       }
       for(let i = 0; i < this.skillPriorityNum; i++)
       {
@@ -1154,6 +1242,49 @@ export default {
   padding: 0.4rem 0.8rem !important;
   font-size: 1rem !important;
   border-radius: 0.25rem;
+}
+
+/* 取消按钮样式 */
+.cancel-btn {
+  background-color: #dc3545 !important; /* Bootstrap的danger红色 */
+  color: white !important;
+  padding: 0.4rem 0.8rem !important;
+  font-size: 1rem !important;
+  border-radius: 0.25rem;
+  margin-right: 10px; /* 与确认按钮间距 */
+  border: none;
+}
+
+.cancel-btn:hover {
+  background-color: #c82333 !important; /* 悬停时更深的红色 */
+  color: white !important;
+}
+
+/* 确保modal body可以正确滚动 */
+.modal-body {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+/* 遮罩层样式 - 让TaskEditModal背景变暗并阻止交互 */
+.modal-backdrop-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1055; /* 确保在TaskEditModal之上，但在AoharuConfigModal之下 */
+  pointer-events: auto; /* 阻止与背景元素的交互 */
+}
+
+/* 当显示青春杯配置时，让TaskEditModal的内容稍微变暗 */
+#create-task-list-modal.modal.show .modal-content {
+  transition: opacity 0.3s ease;
+}
+
+#create-task-list-modal.modal.show .modal-content.dimmed {
+  opacity: 0.6;
 }
 
 </style>
