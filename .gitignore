@@ -5,3 +5,4 @@ userdata
 **/__pycache__
 .vscode
 .history
+api_responses.json

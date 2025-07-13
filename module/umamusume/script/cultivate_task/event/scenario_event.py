@@ -44,6 +44,9 @@ def aoharuhai_team_name_event(ctx: UmamusumeContext) -> int:
         aoharu_config = ctx.task.detail.scenario_config.aoharu_config
         if aoharu_config is None or aoharu_config.aoharu_team_name_selection is None:
             return len(event_selector_list)
+        if aoharu_config.aoharu_team_name_selection >= REF_AOHARUHAI_TEAM_NAME.__len__():
+            log.error("配置的青春杯队伍名选择超出范围")
+            return len(event_selector_list)
         if image_match(event_img, REF_AOHARUHAI_TEAM_NAME[aoharu_config.aoharu_team_name_selection]).find_match:
             log.debug("匹配到设置的青春杯队伍名")
             return i + 1
